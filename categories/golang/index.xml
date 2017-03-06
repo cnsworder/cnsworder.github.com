@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Golang on CSROSS </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>http://www.cpio.date/categories/golang/index.xml</link>
+    <language>zh-cn</language>
+    <author>cnsworder</author>
+    
+    <updated>Mon, 01 Jan 0001 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Mac 应用列表</title>
+      <link>http://www.cpio.date/post/maclist/</link>
+      <pubDate>Wed, 18 Jan 2017 09:07:51 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/maclist/</guid>
+      <description>
+
+&lt;h3 id=&#34;mac-store&#34;&gt;mac store&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;应用&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;alfred&lt;/td&gt;
+&lt;td&gt;快捷指令&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Commander One， ForkLift&lt;/td&gt;
+&lt;td&gt;文件浏览器&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Manico&lt;/td&gt;
+&lt;td&gt;应用快捷键启动和切换&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;bartender&lt;/td&gt;
+&lt;td&gt;状态栏标签隐藏&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;airmail&lt;/td&gt;
+&lt;td&gt;邮箱&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Unclutter&lt;/td&gt;
+&lt;td&gt;下拉快捷笔记和文件中转&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;chrome，safari&lt;/td&gt;
+&lt;td&gt;浏览器&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Browser Ninja&lt;/td&gt;
+&lt;td&gt;默认浏览器选择&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;DeskConnect&lt;/td&gt;
+&lt;td&gt;多终端发送&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Irvue&lt;/td&gt;
+&lt;td&gt;桌面背景&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Leaf&lt;/td&gt;
+&lt;td&gt;订阅&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;MacID&lt;/td&gt;
+&lt;td&gt;手机解锁Mac&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;欧陆词典／有道翻译&lt;/td&gt;
+&lt;td&gt;翻译&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;奇妙清单&lt;/td&gt;
+&lt;td&gt;清单&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;dash&lt;/td&gt;
+&lt;td&gt;代码文档&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Marboo&lt;/td&gt;
+&lt;td&gt;多文件格式浏览&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Noizio&lt;/td&gt;
+&lt;td&gt;白噪音&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Quiver， MWeb&lt;/td&gt;
+&lt;td&gt;markdown&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Notability&lt;/td&gt;
+&lt;td&gt;多端笔记&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Paste&lt;/td&gt;
+&lt;td&gt;剪切板管理&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;PopClip&lt;/td&gt;
+&lt;td&gt;选择快捷操作&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Pocket&lt;/td&gt;
+&lt;td&gt;文档收集&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;SnappyApp&lt;/td&gt;
+&lt;td&gt;截图&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;The Unarchiver&lt;/td&gt;
+&lt;td&gt;解压缩&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;TinyCal&lt;/td&gt;
+&lt;td&gt;日历&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Typeeto&lt;/td&gt;
+&lt;td&gt;mac输入到手机&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;U图床&lt;/td&gt;
+&lt;td&gt;图床上传&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;xLine&lt;/td&gt;
+&lt;td&gt;脑图&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;QQ, 微信&lt;/td&gt;
+&lt;td&gt;聊天&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;网易云音乐&lt;/td&gt;
+&lt;td&gt;音乐&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;独立下载&#34;&gt;独立下载&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;应用&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;appcleaner&lt;/td&gt;
+&lt;td&gt;应用卸载&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;iTerm&lt;/td&gt;
+&lt;td&gt;终端&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Jump Desktop&lt;/td&gt;
+&lt;td&gt;远程桌面&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;iStat Menus&lt;/td&gt;
+&lt;td&gt;系统状态&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Synergy&lt;/td&gt;
+&lt;td&gt;多机共享鼠标键盘&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ShadowsocksX&lt;/td&gt;
+&lt;td&gt;科学上网&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Spectacle&lt;/td&gt;
+&lt;td&gt;窗口管理&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;SourceTree&lt;/td&gt;
+&lt;td&gt;代码版本管理&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;yEd&lt;/td&gt;
+&lt;td&gt;流程图&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;steam&lt;/td&gt;
+&lt;td&gt;游戏&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;QBlocker&lt;/td&gt;
+&lt;td&gt;屏蔽cmd+Q&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;brew-cask&#34;&gt;brew cask&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;应用&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;DB Browser for SQLite&lt;/td&gt;
+&lt;td&gt;sqlite&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;emacs-mac，macvim&lt;/td&gt;
+&lt;td&gt;编辑器&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;cakebrew&lt;/td&gt;
+&lt;td&gt;homebrew GUI&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;keycastr&lt;/td&gt;
+&lt;td&gt;按键显示&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>探究golang接口</title>
+      <link>http://www.cpio.date/post/gointerface/</link>
+      <pubDate>Fri, 13 Mar 2015 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/gointerface/</guid>
+      <description>
+
+&lt;p&gt;今天看了&lt;a href=&#34;http://se77en.cc/2014/05/05/methods-interfaces-and-embedded-types-in-golang/&#34;&gt;《Go 语言中的方法，接口和嵌入类型》&lt;/a&gt;所以想对比以前对C/C++相关知识进一步理解golang的接口、指针、参数传递。&lt;/p&gt;
+
+&lt;h2 id=&#34;接口&#34;&gt;接口&lt;/h2&gt;
+
+&lt;p&gt;根据&lt;a href=&#34;http://se77en.cc/2014/05/05/methods-interfaces-and-embedded-types-in-golang/&#34;&gt;《Go 语言中的方法，接口和嵌入类型》&lt;/a&gt;的描述可以看出，接口去调用结构体的方法时需要针对接受者的不同去区分，即：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;接收者是指针&lt;code&gt;*T&lt;/code&gt;时，接口实例必须是指针&lt;/li&gt;
+&lt;li&gt;接收者是值 &lt;code&gt;T&lt;/code&gt;时，接口实力可以是指针也可以是值&lt;/li&gt;
+&lt;li&gt;接口的定义和类型转换与接收者的定义是关联的&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;文章中的示例是通过接口作为函数参数的方式展现的，这里我直接使用变量来进行实验：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;package main
+
+import &amp;quot;fmt&amp;quot;
+
+type Type struct {
+     name string
+}
+
+type PType struct {
+     name string
+}
+
+type Inter iInterface {
+     post()
+}
+
+// 接收者非指针
+func (t Type) post() {
+    fmt.Println(&amp;quot;POST&amp;quot;)
+}
+
+// 接收者是指针
+func (t *PType) post() {
+    fmt.Println(&amp;quot;POST&amp;quot;)
+}
+
+func main()
+{
+    var it Inter
+    //var it *Inter //接口不能定义为指针
+    pty := new(Type)
+    ty := {&amp;quot;type&amp;quot;}
+    it = ty // 将变量赋值给接口，OK
+    it.post() // 接口调用方法，OK
+    it = pty // 把指针变量赋值给接口，OK
+    it.post() // 接口调用方法，OK
+
+    pty2 := new(PType)
+    ty2 := {&amp;quot;ptype&amp;quot;}
+    it = ty2 // 将变量赋值给接口，error
+    it.post() // 接口调用方法，error
+    it = pty2 // 把指针变量赋值给接口，OK
+    it.post() // 接口调用方法，OK
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;看到的情况和文章中所使用的接口作为参数的情况完全一致。&lt;/p&gt;
+
+&lt;p&gt;根据规定接口不能定义为指针，我曾经尝试将接口定义为指针，而以提示：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;cannot use user (type User) as type *Interface in assignment:
+    *Interface is pointer to interface, not interface&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;的失败结果而告终。个人从C++的经验这样理解接口，&lt;code&gt;接口本身是一种引用，而声明指向引用的指针是非法的&lt;/code&gt;C++中会出现下面的编译错误：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;error: cannot declare pointer to &amp;lsquo;int&amp;amp;&amp;rsquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;变量和指针直接调用成功应会是golang内部类型的隐藏转换
+进一步的探究，通过指针赋值的接口转换成指针是成功的 &lt;code&gt;pty = t.(*Type)&lt;/code&gt;,但是将通过指针赋值的接口转换成普通的值类型会出现下面的错误：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;panic: interface conversion: main.Inter is *main.Type, not main.Type&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;同样，通过值赋值的接口直接转换成指针&lt;code&gt;pty = t.(Type)&lt;/code&gt;也会出错，这也许证明了&lt;code&gt;interface&lt;/code&gt;是引用的推断，同时也说明他不是简单的指针。&lt;/p&gt;
+
+&lt;p&gt;这一点让我联想到了，C++中虚函数实现多态的情况，如果想要使用多态特性，实例化的对象必须是指针或者引用。&lt;/p&gt;
+
+&lt;h2 id=&#34;函数&#34;&gt;函数&lt;/h2&gt;
+
+&lt;p&gt;根据实验参数传递基本上和C/C++也是相同的，毕竟&lt;code&gt;go&lt;/code&gt;和&lt;code&gt;c&lt;/code&gt;仅仅是“同父异母”而已（:-p）。即是所有的参数都是按照值进行传递的，而指针和引用因为副本所指向的内容相同，所以修改其内容同时引发原始数据的改变。所以&lt;strong&gt;golang中函数需要对数据进行修改需要通过指针类型进行数据传递&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;和函数参数传递一样，如果修改接收者是值类型的数据时，也只是修改的他的副本，而不影响他原有的数据。&lt;/p&gt;
+
+&lt;p&gt;由此可以理解 &lt;strong&gt;接收者实际传递的是一个参数，它的传递方式同样是复制&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;OK,先这些吧，根据自己的理解在进一步添加和修改内容，如果有错误，还请大家指出。&lt;/p&gt;
+
+&lt;p&gt;2015-03-13
+cnsworder&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>c&#43;&#43;开发环境使用感受</title>
+      <link>http://www.cpio.date/post/c&#43;&#43;%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8%E6%84%9F%E5%8F%97/</link>
+      <pubDate>Tue, 27 Jul 2004 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/c&#43;&#43;%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8%E6%84%9F%E5%8F%97/</guid>
+      <description>&lt;p&gt;学习 &lt;code&gt;C++&lt;/code&gt; 有一段时间了，真正完全符合标准的 &lt;code&gt;C++&lt;/code&gt; 开发环境却没有（也许是我没发现，如果那位大哥有，别忘了给小弟我介绍一下）。&lt;/p&gt;
+
+&lt;p&gt;刚开始学着用 &lt;code&gt;VC＋＋6.0&lt;/code&gt; ，还可以在 &lt;code&gt;windows&lt;/code&gt; 下确实是不错的。后来，看到 &lt;code&gt;DEV－C++&lt;/code&gt; 不错，从网上下载了一个 &lt;code&gt;DEV－C++4.9.8.10&lt;/code&gt;   来用，还不错，使用 &lt;code&gt;gcc&lt;/code&gt; 作为编译器，虽然功能上有些限制，但对于初学者来说已经够用了。如果以后要向 &lt;code&gt;Linux&lt;/code&gt; 平台迁移的话 &lt;code&gt;DEV-C++&lt;/code&gt; 是一个很好的选择。他是一个免费软件，更新迅速。对于向我这样的穷人来说也许是首选。前几天，弄到了 &lt;code&gt;BCB6.0&lt;/code&gt; ，听别人说是对 &lt;code&gt;C++&lt;/code&gt; 标准支持最好的，也许是用微软的东西用多了，不是很习惯。他能很好的对工程进行编译，但调试功能却在 &lt;code&gt;VC&lt;/code&gt; 之下。在 &lt;code&gt;Linux&lt;/code&gt; 的 &lt;code&gt;Shell&lt;/code&gt; 下直接用 &lt;code&gt;gcc&lt;/code&gt; 做编译器也许是一个不错的注意，但要找到一个好的集成开发环境那是再好不过的了！&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;注：这是2004年在 csdn 上发的第一篇 blog&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

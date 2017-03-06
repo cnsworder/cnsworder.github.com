@@ -1,0 +1,1515 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Posts on CSROSS </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>http://www.cpio.date/post/index.xml</link>
+    <language>zh-cn</language>
+    <author>cnsworder</author>
+    
+    <updated>Mon, 06 Mar 2017 12:50:27 &#43;0800</updated>
+    
+    <item>
+      <title>ambari端口修改</title>
+      <link>http://www.cpio.date/post/ambari%E7%AB%AF%E5%8F%A3%E4%BF%AE%E6%94%B9/</link>
+      <pubDate>Mon, 06 Mar 2017 12:50:27 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/ambari%E7%AB%AF%E5%8F%A3%E4%BF%AE%E6%94%B9/</guid>
+      <description>&lt;p&gt;Ambari 使用 &lt;code&gt;8080&lt;/code&gt; 端口提供服务，这个端口很多情况下会被 tomcat 等其他应用所占用。修改的方法如下：&lt;/p&gt;
+
+&lt;p&gt;修改配置文件 &lt;code&gt;/etc/ambari-server/conf/ambari.properties&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;client.api.port=&amp;lt;port_number&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;默认情况下配置文件中没有这个选项，添加上就可以。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>kubernetes安装简明教程</title>
+      <link>http://www.cpio.date/post/kubernetes%E5%AE%89%E8%A3%85%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/</link>
+      <pubDate>Wed, 08 Feb 2017 14:46:28 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/kubernetes%E5%AE%89%E8%A3%85%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;kubernetes通过 &lt;code&gt;kubeadm&lt;/code&gt; 方式安装需要以下四个包&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+&lt;li&gt;kubelet&lt;/li&gt;
+&lt;li&gt;kubernetes-cni&lt;/li&gt;
+&lt;li&gt;kubeadm&lt;/li&gt;
+&lt;li&gt;kubectl&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这四个包可以通过 &lt;code&gt;https://github.com/kubernetes/kubernetes&lt;/code&gt; 仓库下载后执行 &lt;code&gt;make&lt;/code&gt; 获取安装包，如果需要rpm包需要下载 release 版本。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装 kubernetes 环境&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装管理节点&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;kubeadmin init  &amp;ndash;api-advertise-addresses [管理节点IP]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这一步会生成一个token在工作节点加入的时候用。&lt;/p&gt;
+
+&lt;p&gt;kubernetes所有组件以 &lt;code&gt;POD&lt;/code&gt; 运行在kubernetes中，下面这些镜像是在安装过程中在安装的需要提前准备好，具体版本号会根据kubernetes版本不同而不同，注意匹配，否则可能会有安装失败。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; # 所有节点都会安装
+gcr.io/google_containers/pause-amd64
+gcr.io/google_containers/kube-proxy-amd64
+        
+ # 管理节点安装
+gcr.io/google_containers/etcd-amd64
+gcr.io/google_containers/kube-apiserver-amd64
+gcr.io/google_containers/kube-scheduler-amd64
+gcr.io/google_containers/kube-discovery-amd64
+gcr.io/google_containers/kube-controller-manager-amd64
+gcr.io/google_containers/exechealthz-amd64
+        
+ # 网络插件， 所有节点都会安装
+weaveworks/weave-kube
+weaveworks/weave-npc
+        
+ # dns 插件，管理节点安装
+gcr.io/google_containers/kubedns-amd64
+gcr.io/google_containers/kube-dnsmasq-amd64
+gcr.io/google_containers/dnsmasq-metrics-amd64
+        
+    
+ # web界面，管理节点安装
+gcr.io/google_containers/kubernetes-dashboard-amd64
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;启动 &lt;code&gt;kubelet&lt;/code&gt; 服务&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;systemctl start kubelet&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;安装工作节点&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;kubeadm join &amp;ndash;token=[上一步生成的token] [管理节点IP]&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;安装 POD 网络&lt;/p&gt;
+
+&lt;p&gt;POD网络有很多实现，可以选择有flannel，weave等，下载weave的 &lt;code&gt;yaml&lt;/code&gt; 直接在 kubernetes 中运行&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;kubectl apply -f weave-daemonset.yaml&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;运行dashborad&lt;/p&gt;
+
+&lt;p&gt;方法同POD网络&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;kubectl apply -f weave-daemonset.yaml&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;其他组件模块&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;所有模块在kubernetes中是运行在POD中。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Ingress 模块实现需要依赖 &lt;code&gt;traefik&lt;/code&gt; 的 &lt;code&gt;Daemon Set&lt;/code&gt; ；&lt;/li&gt;
+&lt;li&gt;dashboard模块需要 &lt;code&gt;kubernetes-dashboard-amd64&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;监控模块需要运行 &lt;code&gt;heapster&lt;/code&gt;， &lt;code&gt;influxdb&lt;/code&gt;， &lt;code&gt;grafana&lt;/code&gt; 三个 &lt;code&gt;service&lt;/code&gt;；&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>sh的按键绑定</title>
+      <link>http://www.cpio.date/post/sh%E7%9A%84%E6%8C%89%E9%94%AE%E7%BB%91%E5%AE%9A/</link>
+      <pubDate>Sun, 05 Feb 2017 17:05:16 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/sh%E7%9A%84%E6%8C%89%E9%94%AE%E7%BB%91%E5%AE%9A/</guid>
+      <description>
+
+&lt;h2 id=&#34;zsh&#34;&gt;zsh&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;my-script() { echo &amp;quot;test&amp;quot; }
+zle -N my-script
+bindkey &#39;^j&#39; my-script
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或者&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bindkey -s &#39;\eb&#39; &#39;script.sh&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;bash&#34;&gt;bash&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;bind &#39;\ee&#39;:&amp;quot;\C-asudo\C-e&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;alt就是bash的&amp;rsquo;meta&amp;rsquo;key， 所以 &lt;code&gt;\e&lt;/code&gt; 表示 &lt;code&gt;alt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;显示的 &lt;code&gt;^[&lt;/code&gt; 转义或元键的意思，再加上 &amp;lsquo;e&amp;rsquo;就是 &lt;code&gt;^[e&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;\C&lt;/code&gt; 就是 &lt;code&gt;ctrl&lt;/code&gt;;&lt;/p&gt;
+
+&lt;p&gt;通过 &lt;code&gt;read&lt;/code&gt; 命令可以获取输入的按键表示方法；&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>个人知识管理</title>
+      <link>http://www.cpio.date/post/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Sat, 21 Jan 2017 15:14:18 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</guid>
+      <description>
+
+&lt;p&gt;这个话题大家都有自己的想法和做法，我不想布道，在这里把自己的知识管理发展过程和现在的知识管理方法和大家分享一下，同时也请大家能给出更好的思路和方法。&lt;/p&gt;
+
+&lt;p&gt;最初个人的知识记录在本子上（主要还是学生的时代），这个过程大家都有过，现在能够翻出来看别有一番滋味，但是大部分也已经无从找到，从知识保存的角度来说就是都没了。当然有很多通过手工的记录都已经记录到自己的脑子里了。&lt;/p&gt;
+
+&lt;p&gt;后来开始经常在电脑前了，将自己的学习的资料保存起来，很多的pdf（惭愧的是都是盗版）被分类放到文件夹里。发现这样的后果是只收集了文档却忘记了看，渐渐的开始用word来记一些笔记，这些笔记内容翻看起来是很好的的学习成长的记录，但当时的时代没有云存储服务，所以保存在电脑和移动硬盘随着时间的推移也已经找不到了。&lt;/p&gt;
+
+&lt;p&gt;然后开始有了博客，开始记录和摘抄一些东西，其实博客很重要的是分享原创，用来做笔记真的不合适。07年左右开始在csdn 上安家，但是感觉自己的太水了写，写出东西来让人笑话，要么就是转贴一些东西意义不大，中间有一年左右的时间没有写任何的内容。&lt;/p&gt;
+
+&lt;p&gt;evernote 在接写来的很长一段时间成为了我摘录笔记的良好平台，我可以将自己的学习知识记录在上面，权当私藏。evernote的web剪辑功能确实不错可以快速的将别人的文章中自己需要的部分选取保存起来。但是时间长了感觉有些缺憾，记录起笔记来感觉不爽，evernote实际上不太适合程序员使用，代码的支持不好。后来学习了markdown语法借助马克飞象这个工具来用markdown语法来写笔记。笔记还算是圆满了。让后对markdown就像着迷一样，它用来做程序员的比较工具太爽了，找csdn上支持markdown的方法，并且在找支持markdown的替换的blog。借助markdownhere可以将自己输入的文档直接转成相应的富文本，但是修改起来很麻烦。其实马克飞象也存在这个问题，没有办法修改已经发布的文章。wri.pe借助dropbox保存markdown源码同时将编译后的富文本发布到evernote上解决了这个问题。至此笔记的问题解决了。&lt;/p&gt;
+
+&lt;p&gt;blog的对markdown或者restructuredtext支持的问题，一直是个遗憾，csdn压根就不支持markdown， oschina 的markdown编辑器可用性太差了，简书这样的网站对markdown支持倒是不错，但不是程序员的社区。segmentfault的markdown编辑器还算不错。（一会儿写完，看看是否还能修改～～～，OK，可以很好的修改）。&lt;/p&gt;
+
+&lt;p&gt;很多人推荐用wiki来组织管理知识，个人感觉需要搭建相应的服务，并且还需要学习比markdown和restructuredtext更复杂的wiki format语法。个人没有采用这种做法，组织化的文档知识还是用restructuredtext放到gihub上用readthedocs自动管理吧。&lt;/p&gt;
+
+&lt;h2 id=&#34;最终的解决方法&#34;&gt;最终的解决方法：&lt;/h2&gt;
+
+&lt;h3 id=&#34;笔记&#34;&gt;笔记&lt;/h3&gt;
+
+&lt;p&gt;wri.pe + evernote&lt;/p&gt;
+
+&lt;h3 id=&#34;分享&#34;&gt;分享&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;组织化文档 github + readthedocs + restructuredtext + sphinx&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;文章 blog + penlican&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;代码片 gist&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;手册 zeal + man&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;程序员知识范围和组织形式不同很可能采用的方法产生的效果有所不同。
+做前端的希望很快的看到自己代码的效果和展示形式自然会用一些能够可见的工具来管理。都有很多更好的工具来辅助，但是我这样的只写代码的猿就没有必要了。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;另外大家有Linux平台下代码片管理工具可以推荐给我。&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>vim 插件列表</title>
+      <link>http://www.cpio.date/post/vimlist/</link>
+      <pubDate>Wed, 18 Jan 2017 12:10:25 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/vimlist/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/cnsworder/crossvim&#34;&gt;仓库地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;基础&#34;&gt;基础&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;插件&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;gmarik/vundle, L9&lt;/td&gt;
+&lt;td&gt;包管理&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;The-NERD-tree&lt;/td&gt;
+&lt;td&gt;目录树&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;mhinz/vim-startify&lt;/td&gt;
+&lt;td&gt;首页&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ryanoasis/vim-devicons&lt;/td&gt;
+&lt;td&gt;文件图标&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ctrlpvim/ctrlp.vim, dyng/ctrlsf.vim&lt;/td&gt;
+&lt;td&gt;快速搜索&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;bling/vim-airline&lt;/td&gt;
+&lt;td&gt;状态栏美化&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;zenorocha/dracula-theme&amp;rsquo;,{&amp;lsquo;rtp&amp;rsquo;:&amp;lsquo;vim/&amp;rsquo;}&lt;/td&gt;
+&lt;td&gt;配色&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;terryma/vim-multiple-cursors.git&lt;/td&gt;
+&lt;td&gt;多光标&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;rking/ag.vim， dkprice/vim-easygrep&amp;rsquo;&lt;/td&gt;
+&lt;td&gt;搜索&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Lokaltog/vim-easymotion&lt;/td&gt;
+&lt;td&gt;搜索定位&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Plugin &amp;lsquo;TaskList.vim&lt;/td&gt;
+&lt;td&gt;任务列表&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;mbbill/undotree&lt;/td&gt;
+&lt;td&gt;撤销修改&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Yggdroot/indentLine&lt;/td&gt;
+&lt;td&gt;缩进提示&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;kien/rainbow_parentheses.vim&lt;/td&gt;
+&lt;td&gt;括号高亮&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;jiangmiao/auto-pairs，surround.vim&lt;/td&gt;
+&lt;td&gt;括号补全&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;terryma/vim-expand-region&lt;/td&gt;
+&lt;td&gt;扩展选择区域&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;开发&#34;&gt;开发&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;插件&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;editorconfig/editorconfig-vim&lt;/td&gt;
+&lt;td&gt;代码风格&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;mattn/gist-vim, tpope/vim-fugitive, airblade/vim-gitgutter&lt;/td&gt;
+&lt;td&gt;git&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;scrooloose/nerdcommenter&lt;/td&gt;
+&lt;td&gt;代码注释&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Valloric/YouCompleteMe&lt;/td&gt;
+&lt;td&gt;智能补全&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;scrooloose/syntastic&lt;/td&gt;
+&lt;td&gt;代码检查&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Chiel92/vim-autoformat&lt;/td&gt;
+&lt;td&gt;代码格式化&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;honza/vim-snippets&lt;/td&gt;
+&lt;td&gt;代码段提示&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;rizzatti/dash.vim, KabbAmine/zeavim.vim&lt;/td&gt;
+&lt;td&gt;帮助文档&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;DoxygenToolkit.vim&lt;/td&gt;
+&lt;td&gt;注释工具&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Tagbar&lt;/td&gt;
+&lt;td&gt;代码导航&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;gtags.vim&lt;/td&gt;
+&lt;td&gt;global导航&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;a.vim&lt;/td&gt;
+&lt;td&gt;头文件和源文件快速跳转&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;fatih/vim-go&lt;/td&gt;
+&lt;td&gt;go&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;vim-flake8&lt;/td&gt;
+&lt;td&gt;python&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;mattn/emmet-vim&lt;/td&gt;
+&lt;td&gt;web&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot;包管理
+Plugin &#39;gmarik/vundle&#39;
+Plugin &#39;L9&#39;
+&amp;quot;Plugin &#39;junegunn/vim-plug&#39;
+&amp;quot;目录树
+Plugin &#39;The-NERD-tree&#39;
+&amp;quot;快速搜索
+&amp;quot;Plugin &#39;FuzzyFinder&#39;
+Plugin &#39;ctrlpvim/ctrlp.vim&#39;
+Plugin &#39;dyng/ctrlsf.vim&#39;
+&amp;quot;状态栏
+if ! has(&#39;python&#39;)
+    Plugin &#39;bling/vim-airline&#39;
+elseif has(&#39;mac&#39;)
+    source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
+    set laststatus=2
+else
+    source /usr/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
+endif
+&amp;quot;Plugin &#39;Lokaltog/vim-powerline.git&#39;
+&amp;quot;多光标
+Plugin &#39;terryma/vim-multiple-cursors.git&#39;
+
+&amp;quot;主题配色
+&amp;quot;Plugin &#39;molokai&#39;
+Plugin &#39;zenorocha/dracula-theme&#39;,{&#39;rtp&#39;:&#39;vim/&#39;}
+&amp;quot;Plugin &#39;tango.vim&#39;
+
+&amp;quot;搜索定位
+Plugin &#39;Lokaltog/vim-easymotion&#39;
+&amp;quot;搜索
+Plugin &#39;rking/ag.vim&#39;
+Plugin &#39;dkprice/vim-easygrep&#39;
+&amp;quot;任务列表
+Plugin &#39;TaskList.vim&#39;
+&amp;quot;撤销树
+Plugin &#39;mbbill/undotree&#39;
+&amp;quot;缩进提示
+Plugin &#39;Yggdroot/indentLine&#39;
+&amp;quot;Plugin &#39;nathanaelkane/vim-indent-guides&#39;
+&amp;quot;括号高亮
+Plugin &#39;kien/rainbow_parentheses.vim&#39;
+&amp;quot;括号补全
+Plugin &#39;jiangmiao/auto-pairs&#39;
+Plugin &#39;surround.vim&#39;
+&amp;quot; 扩展选择区域
+Plugin &#39;terryma/vim-expand-region&#39;
+
+&amp;quot; editorconfig
+Plugin &#39;editorconfig/editorconfig-vim&#39;
+
+&amp;quot;头文件和源文件快速跳转
+Plugin &#39;a.vim&#39;
+&amp;quot;代码检查
+Plugin &#39;scrooloose/syntastic&#39;
+&amp;quot;git
+Plugin &#39;mattn/gist-vim&#39;
+Plugin &#39;tpope/vim-fugitive&#39;
+Plugin &#39;airblade/vim-gitgutter&#39;
+&amp;quot;代码注释
+Plugin &#39;scrooloose/nerdcommenter&#39;
+&amp;quot;golang
+Plugin &#39;fatih/vim-go&#39;
+&amp;quot;python
+Plugin &#39;vim-flake8&#39;
+&amp;quot;web
+Plugin &#39;mattn/emmet-vim&#39;
+
+&amp;quot;代码导航
+Plugin &#39;Tagbar&#39;
+
+&amp;quot;global导航
+Plugin &#39;gtags.vim&#39;
+
+&amp;quot;帮助文档
+&amp;quot;Plugin &#39;Keithbsmiley/investigate.vim&#39;
+Plugin &#39;DoxygenToolkit.vim&#39;
+
+if has(&amp;quot;mac&amp;quot;)
+    Plugin &#39;rizzatti/dash.vim&#39;
+else
+    Plugin &#39;KabbAmine/zeavim.vim&#39;
+endif
+
+
+&amp;quot;代码段提示
+Plugin &#39;honza/vim-snippets&#39;
+if has(&amp;quot;python&amp;quot;)
+    Plugin &#39;SirVer/ultiSnips&#39;
+endif
+
+&amp;quot;代码格式化
+if has(&amp;quot;python&amp;quot;)
+    Plugin &#39;Chiel92/vim-autoformat&#39;
+endif
+
+&amp;quot;代码提示
+if v:version &amp;lt; 703
+    Plugin &#39;clang-complete&#39;
+else
+    Plugin &#39;Valloric/YouCompleteMe&#39;
+endif
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Mac 应用列表</title>
+      <link>http://www.cpio.date/post/maclist/</link>
+      <pubDate>Wed, 18 Jan 2017 09:07:51 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/maclist/</guid>
+      <description>
+
+&lt;h3 id=&#34;mac-store&#34;&gt;mac store&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;应用&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;alfred&lt;/td&gt;
+&lt;td&gt;快捷指令&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Commander One， ForkLift&lt;/td&gt;
+&lt;td&gt;文件浏览器&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Manico&lt;/td&gt;
+&lt;td&gt;应用快捷键启动和切换&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;bartender&lt;/td&gt;
+&lt;td&gt;状态栏标签隐藏&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;airmail&lt;/td&gt;
+&lt;td&gt;邮箱&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Unclutter&lt;/td&gt;
+&lt;td&gt;下拉快捷笔记和文件中转&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;chrome，safari&lt;/td&gt;
+&lt;td&gt;浏览器&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Browser Ninja&lt;/td&gt;
+&lt;td&gt;默认浏览器选择&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;DeskConnect&lt;/td&gt;
+&lt;td&gt;多终端发送&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Irvue&lt;/td&gt;
+&lt;td&gt;桌面背景&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Leaf&lt;/td&gt;
+&lt;td&gt;订阅&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;MacID&lt;/td&gt;
+&lt;td&gt;手机解锁Mac&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;欧陆词典／有道翻译&lt;/td&gt;
+&lt;td&gt;翻译&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;奇妙清单&lt;/td&gt;
+&lt;td&gt;清单&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;dash&lt;/td&gt;
+&lt;td&gt;代码文档&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Marboo&lt;/td&gt;
+&lt;td&gt;多文件格式浏览&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Noizio&lt;/td&gt;
+&lt;td&gt;白噪音&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Quiver， MWeb&lt;/td&gt;
+&lt;td&gt;markdown&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Notability&lt;/td&gt;
+&lt;td&gt;多端笔记&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Paste&lt;/td&gt;
+&lt;td&gt;剪切板管理&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;PopClip&lt;/td&gt;
+&lt;td&gt;选择快捷操作&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Pocket&lt;/td&gt;
+&lt;td&gt;文档收集&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;SnappyApp&lt;/td&gt;
+&lt;td&gt;截图&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;The Unarchiver&lt;/td&gt;
+&lt;td&gt;解压缩&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;TinyCal&lt;/td&gt;
+&lt;td&gt;日历&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Typeeto&lt;/td&gt;
+&lt;td&gt;mac输入到手机&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;U图床&lt;/td&gt;
+&lt;td&gt;图床上传&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;xLine&lt;/td&gt;
+&lt;td&gt;脑图&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;QQ, 微信&lt;/td&gt;
+&lt;td&gt;聊天&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;网易云音乐&lt;/td&gt;
+&lt;td&gt;音乐&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;独立下载&#34;&gt;独立下载&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;应用&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;appcleaner&lt;/td&gt;
+&lt;td&gt;应用卸载&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;iTerm&lt;/td&gt;
+&lt;td&gt;终端&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Jump Desktop&lt;/td&gt;
+&lt;td&gt;远程桌面&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;iStat Menus&lt;/td&gt;
+&lt;td&gt;系统状态&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Synergy&lt;/td&gt;
+&lt;td&gt;多机共享鼠标键盘&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ShadowsocksX&lt;/td&gt;
+&lt;td&gt;科学上网&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Spectacle&lt;/td&gt;
+&lt;td&gt;窗口管理&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;SourceTree&lt;/td&gt;
+&lt;td&gt;代码版本管理&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;yEd&lt;/td&gt;
+&lt;td&gt;流程图&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;steam&lt;/td&gt;
+&lt;td&gt;游戏&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;QBlocker&lt;/td&gt;
+&lt;td&gt;屏蔽cmd+Q&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;brew-cask&#34;&gt;brew cask&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;应用&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;DB Browser for SQLite&lt;/td&gt;
+&lt;td&gt;sqlite&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;emacs-mac，macvim&lt;/td&gt;
+&lt;td&gt;编辑器&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;cakebrew&lt;/td&gt;
+&lt;td&gt;homebrew GUI&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;keycastr&lt;/td&gt;
+&lt;td&gt;按键显示&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>openstack连接ceph不成功</title>
+      <link>http://www.cpio.date/post/openstack%E8%BF%9E%E6%8E%A5ceph%E4%B8%8D%E6%88%90%E5%8A%9F/</link>
+      <pubDate>Fri, 24 Jun 2016 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/openstack%E8%BF%9E%E6%8E%A5ceph%E4%B8%8D%E6%88%90%E5%8A%9F/</guid>
+      <description>
+
+&lt;h3 id=&#34;现象&#34;&gt;现象&lt;/h3&gt;
+
+&lt;p&gt;openstack集成ceph过程中出现rbd和rados连接ceph成功，但是openstack连接不成功。&lt;/p&gt;
+
+&lt;h3 id=&#34;原因&#34;&gt;原因&lt;/h3&gt;
+
+&lt;p&gt;我配置的ceph使用了admin用户进行连接ceph没有建立用户，可能是权限限制。&lt;/p&gt;
+
+&lt;h3 id=&#34;解决方法&#34;&gt;解决方法&lt;/h3&gt;
+
+&lt;p&gt;给ceph新建授权用户就可以&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ceph get-or-create client.glance mon &#39;allow *&#39; osd &#39;allow *&#39; mds &#39;allow *&#39; -o ceph.client.glance.keyring
+ceph get-or-create client.cinder mon &#39;allow *&#39; osd &#39;allow *&#39; mds &#39;allow *&#39; -o ceph.client.cinder.keyring
+ceph get-or-create client.nova mon &#39;allow *&#39; osd &#39;allow *&#39; mds &#39;allow *&#39; -o ceph.client.nova.keyring
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;另外需要注意的是修改nova的计算节点：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cat &amp;gt; secret.xml &amp;lt;&amp;lt;EOF
+&amp;lt;secret ephemeral=&#39;no&#39; private=&#39;no&#39;&amp;gt;
+  &amp;lt;uuid&amp;gt;457eb676-33da-42ec-9a8c-9293d545c337&amp;lt;/uuid&amp;gt; &amp;lt;!-- uuidgen生成，这行可以没有后面加入  --&amp;gt;
+  &amp;lt;usage type=&#39;ceph&#39;&amp;gt;
+    &amp;lt;name&amp;gt;client.cinder secret&amp;lt;/name&amp;gt;
+  &amp;lt;/usage&amp;gt;
+&amp;lt;/secret&amp;gt;
+EOF
+
+virsh secret-define --file secret.xml
+virsh secret-set --secret key --base64 ceph auth get-key client.cinder
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;说明&#34;&gt;说明&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;这一系列命令生成的key值是配置nova和cinder的一个重要的值rbd_secret_uuid&lt;/li&gt;
+&lt;li&gt;uuid可以先用uuidgen生成也可以，在virsh sercret-define 的时候生成&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;附-openstack配置修改&#34;&gt;附：openstack配置修改&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;/etc/glance/glance-api.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[DEFAULT]
+...
+default_store = rbd
+...
+[glance_store]
+stores = rbd
+rbd_store_pool = images
+rbd_store_user = glance
+rbd_store_ceph_conf = /etc/ceph/ceph.conf
+rbd_store_chunk_size = 8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;/etc/cinder/cinder.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[DEFAULT]
+...
+enabled_backends = ceph
+...
+[ceph]
+volume_driver = cinder.volume.drivers.rbd.RBDDriver
+rbd_pool = volumes
+rbd_ceph_conf = /etc/ceph/ceph.conf
+rbd_flatten_volume_from_snapshot = false
+rbd_max_clone_depth = 5
+rbd_store_chunk_size = 4
+rados_connect_timeout = -1
+glance_api_version = 2
+rbd_user = cinder
+rbd_secret_uuid = 457eb676-33da-42ec-9a8c-9293d545c337
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;/etc/nova/nova.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[libvirt]
+images_type = rbd
+images_rbd_pool = vms
+images_rbd_ceph_conf = /etc/ceph/ceph.conf
+rbd_user = cinder
+rbd_secret_uuid = 457eb676-33da-42ec-9a8c-9293d545c337
+disk_cachemodes=&amp;quot;network=writeback&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>探究golang接口</title>
+      <link>http://www.cpio.date/post/gointerface/</link>
+      <pubDate>Fri, 13 Mar 2015 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/gointerface/</guid>
+      <description>
+
+&lt;p&gt;今天看了&lt;a href=&#34;http://se77en.cc/2014/05/05/methods-interfaces-and-embedded-types-in-golang/&#34;&gt;《Go 语言中的方法，接口和嵌入类型》&lt;/a&gt;所以想对比以前对C/C++相关知识进一步理解golang的接口、指针、参数传递。&lt;/p&gt;
+
+&lt;h2 id=&#34;接口&#34;&gt;接口&lt;/h2&gt;
+
+&lt;p&gt;根据&lt;a href=&#34;http://se77en.cc/2014/05/05/methods-interfaces-and-embedded-types-in-golang/&#34;&gt;《Go 语言中的方法，接口和嵌入类型》&lt;/a&gt;的描述可以看出，接口去调用结构体的方法时需要针对接受者的不同去区分，即：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;接收者是指针&lt;code&gt;*T&lt;/code&gt;时，接口实例必须是指针&lt;/li&gt;
+&lt;li&gt;接收者是值 &lt;code&gt;T&lt;/code&gt;时，接口实力可以是指针也可以是值&lt;/li&gt;
+&lt;li&gt;接口的定义和类型转换与接收者的定义是关联的&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;文章中的示例是通过接口作为函数参数的方式展现的，这里我直接使用变量来进行实验：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;package main
+
+import &amp;quot;fmt&amp;quot;
+
+type Type struct {
+     name string
+}
+
+type PType struct {
+     name string
+}
+
+type Inter iInterface {
+     post()
+}
+
+// 接收者非指针
+func (t Type) post() {
+    fmt.Println(&amp;quot;POST&amp;quot;)
+}
+
+// 接收者是指针
+func (t *PType) post() {
+    fmt.Println(&amp;quot;POST&amp;quot;)
+}
+
+func main()
+{
+    var it Inter
+    //var it *Inter //接口不能定义为指针
+    pty := new(Type)
+    ty := {&amp;quot;type&amp;quot;}
+    it = ty // 将变量赋值给接口，OK
+    it.post() // 接口调用方法，OK
+    it = pty // 把指针变量赋值给接口，OK
+    it.post() // 接口调用方法，OK
+
+    pty2 := new(PType)
+    ty2 := {&amp;quot;ptype&amp;quot;}
+    it = ty2 // 将变量赋值给接口，error
+    it.post() // 接口调用方法，error
+    it = pty2 // 把指针变量赋值给接口，OK
+    it.post() // 接口调用方法，OK
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;看到的情况和文章中所使用的接口作为参数的情况完全一致。&lt;/p&gt;
+
+&lt;p&gt;根据规定接口不能定义为指针，我曾经尝试将接口定义为指针，而以提示：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;cannot use user (type User) as type *Interface in assignment:
+    *Interface is pointer to interface, not interface&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;的失败结果而告终。个人从C++的经验这样理解接口，&lt;code&gt;接口本身是一种引用，而声明指向引用的指针是非法的&lt;/code&gt;C++中会出现下面的编译错误：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;error: cannot declare pointer to &amp;lsquo;int&amp;amp;&amp;rsquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;变量和指针直接调用成功应会是golang内部类型的隐藏转换
+进一步的探究，通过指针赋值的接口转换成指针是成功的 &lt;code&gt;pty = t.(*Type)&lt;/code&gt;,但是将通过指针赋值的接口转换成普通的值类型会出现下面的错误：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;panic: interface conversion: main.Inter is *main.Type, not main.Type&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;同样，通过值赋值的接口直接转换成指针&lt;code&gt;pty = t.(Type)&lt;/code&gt;也会出错，这也许证明了&lt;code&gt;interface&lt;/code&gt;是引用的推断，同时也说明他不是简单的指针。&lt;/p&gt;
+
+&lt;p&gt;这一点让我联想到了，C++中虚函数实现多态的情况，如果想要使用多态特性，实例化的对象必须是指针或者引用。&lt;/p&gt;
+
+&lt;h2 id=&#34;函数&#34;&gt;函数&lt;/h2&gt;
+
+&lt;p&gt;根据实验参数传递基本上和C/C++也是相同的，毕竟&lt;code&gt;go&lt;/code&gt;和&lt;code&gt;c&lt;/code&gt;仅仅是“同父异母”而已（:-p）。即是所有的参数都是按照值进行传递的，而指针和引用因为副本所指向的内容相同，所以修改其内容同时引发原始数据的改变。所以&lt;strong&gt;golang中函数需要对数据进行修改需要通过指针类型进行数据传递&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;和函数参数传递一样，如果修改接收者是值类型的数据时，也只是修改的他的副本，而不影响他原有的数据。&lt;/p&gt;
+
+&lt;p&gt;由此可以理解 &lt;strong&gt;接收者实际传递的是一个参数，它的传递方式同样是复制&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;OK,先这些吧，根据自己的理解在进一步添加和修改内容，如果有错误，还请大家指出。&lt;/p&gt;
+
+&lt;p&gt;2015-03-13
+cnsworder&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>emacs使用elpa升级插件</title>
+      <link>http://www.cpio.date/post/emacs%E4%BD%BF%E7%94%A8elpa%E5%8D%87%E7%BA%A7%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Tue, 20 Jan 2015 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/emacs%E4%BD%BF%E7%94%A8elpa%E5%8D%87%E7%BA%A7%E6%8F%92%E4%BB%B6/</guid>
+      <description>&lt;p&gt;emacs 24以后自动支持了elpa包管理功能,直接 &lt;code&gt;package-list-packages&lt;/code&gt; 列出插件来,然后 &lt;code&gt;Ctrl-s&lt;/code&gt; 搜索插件,选择安装就可以.这样很是方便,本来以为这样就可以了,但是随着时间推移,插件列表中出现了大量的插件版本,并且有很多 &lt;code&gt;obsolete&lt;/code&gt; 标识的插件.所以想到了我需要elpa来更新插件和删除插件.&lt;/p&gt;
+
+&lt;p&gt;更新管理插件需要进入package-list中进行操作:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;package-list-packages&lt;/code&gt; 进入列表&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;package-menu-mark-upgrade&lt;/code&gt; [U] 设置更新标识&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;package-menu-execute&lt;/code&gt; [x]执行更新操作&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;完成更新操作.&lt;/p&gt;
+
+&lt;p&gt;emacs 24 以前的版本需要安装elpa &lt;a href=&#34;http://repo.or.cz/w/emacs.git/blob_plain/ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09:/lisp/emacs-lisp/package.el&#34;&gt;package&lt;/a&gt;插件来实现以上功能.&lt;/p&gt;
+
+&lt;p&gt;参考文档:
+    &lt;a href=&#34;http://ergoemacs.org/emacs/emacs_package_system.html&#34;&gt;How to Install Packages Using ELPA, MELPA, Marmalade&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://www.emacswiki.org/emacs/ELPA_%28%E4%B8%AD%E6%96%87%29&#34;&gt;ELPA (中文)&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>whiptail使用</title>
+      <link>http://www.cpio.date/post/whiptail%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 06 Jan 2015 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/whiptail%E4%BD%BF%E7%94%A8/</guid>
+      <description>
+
+&lt;p&gt;&lt;code&gt;whiptail&lt;/code&gt; 是替代 &lt;code&gt;dialog&lt;/code&gt; 的实现,它基于 &lt;code&gt;newt&lt;/code&gt; 库.而 &lt;code&gt;newt&lt;/code&gt; 则是为了简化 &lt;code&gt;ncurses&lt;/code&gt; 开发而产生的新的 &lt;code&gt;tty&lt;/code&gt; 下的UI库.&lt;/p&gt;
+
+&lt;p&gt;所以说一切都是新的.&lt;/p&gt;
+
+&lt;h2 id=&#34;whiptail与dialog比较&#34;&gt;whiptail与dialog比较&lt;/h2&gt;
+
+&lt;p&gt;从使用角度来看 &lt;code&gt;whiptail&lt;/code&gt; 和 &lt;code&gt;dialog&lt;/code&gt; 几乎是相同的.&lt;/p&gt;
+
+&lt;p&gt;先看一个messgebox的代码:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#whiptail
+whiptail  --title &amp;quot;Message Box&amp;quot; --msgbox &amp;quot;Message Info&amp;quot; 0 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://upload-images.jianshu.io/upload_images/26845-b06db86e845651aa.png&#34; alt=&#34;whiptail&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# dialog
+dialog --msgbox &amp;quot;Message Info&amp;quot; 0 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://upload-images.jianshu.io/upload_images/26845-02985639b31c2185.png&#34; alt=&#34;dialog&#34; /&gt;
+风格上稍有差异外总体还是一致的.&lt;/p&gt;
+
+&lt;p&gt;现在默认情况下主要的发行版本(fedora, ubuntu, archlinux确认)默认提供的是 &lt;code&gt;whiptail&lt;/code&gt; 和 &lt;code&gt;newt&lt;/code&gt; ,而 &lt;code&gt;dialog&lt;/code&gt; 和 &lt;code&gt;ncurses&lt;/code&gt; 需要手动安装.&lt;/p&gt;
+
+&lt;h2 id=&#34;whiptail使用技巧&#34;&gt;whiptail使用技巧&lt;/h2&gt;
+
+&lt;p&gt;这些技巧大部分在使用 &lt;code&gt;dialog&lt;/code&gt; 时也是适用的.&lt;/p&gt;
+
+&lt;h3 id=&#34;获取返回值&#34;&gt;获取返回值&lt;/h3&gt;
+
+&lt;h4 id=&#34;yesno&#34;&gt;yesno&lt;/h4&gt;
+
+&lt;p&gt;是否的选择根据返回值来获取用户选择&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;whiptail --yesno &amp;quot;choose yes or no&amp;quot; 0 0
+value=$?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;menu-checklist-等&#34;&gt;menu checklist 等&lt;/h4&gt;
+
+&lt;p&gt;菜单的选择返回标准输出字符串&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;whiptail --menu &amp;quot;Choose Menu&amp;quot; 0 0 2 &amp;quot;Linux&amp;quot; &amp;quot;Tux&amp;quot; &amp;quot;Mac&amp;quot; &amp;quot;Darwin&amp;quot; 2&amp;gt; data
+value=cat data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;通过重定向获取&#34;&gt;通过重定向获取&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;COLOR=$(whiptail --inputbox &amp;quot;What is your favorite Color?&amp;quot; 0 0 Blue --title &amp;quot;Example Dialog&amp;quot; 3&amp;gt;&amp;amp;1 1&amp;gt;&amp;amp;2 2&amp;gt;&amp;amp;3)
+echo $COLOR
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;修改显示大小&#34;&gt;修改显示大小&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;resize&lt;/code&gt; 指令会导出 &lt;code&gt;LINES&lt;/code&gt; 和 &lt;code&gt;COLUMNS&lt;/code&gt; 变量, 然后使用变量来调整窗口的大小&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;eval `resize`
+whiptail --title &amp;quot;Title&amp;quot; --msgbox &amp;quot;Message&amp;quot; $LINES $COLUMNS
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;基本参数&#34;&gt;基本参数&lt;/h2&gt;
+
+&lt;p&gt;Box options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;ndash;msgbox &lt;text&gt; &lt;height&gt; &lt;width&gt;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;yesno  &lt;text&gt; &lt;height&gt; &lt;width&gt;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;infobox &lt;text&gt; &lt;height&gt; &lt;width&gt;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;inputbox &lt;text&gt; &lt;height&gt; &lt;width&gt; [init]&lt;/li&gt;
+&lt;li&gt;&amp;ndash;passwordbox &lt;text&gt; &lt;height&gt; &lt;width&gt; [init]&lt;/li&gt;
+&lt;li&gt;&amp;ndash;textbox &lt;file&gt; &lt;height&gt; &lt;width&gt;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;menu &lt;text&gt; &lt;height&gt; &lt;width&gt; &lt;listheight&gt; [tag item] &amp;hellip;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;checklist &lt;text&gt; &lt;height&gt; &lt;width&gt; &lt;listheight&gt; [tag item status]&amp;hellip;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;radiolist &lt;text&gt; &lt;height&gt; &lt;width&gt; &lt;listheight&gt; [tag item status]&amp;hellip;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;gauge &lt;text&gt; &lt;height&gt; &lt;width&gt; &lt;percent&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>编译系统对跨平台代码的支持</title>
+      <link>http://www.cpio.date/post/crossmake/</link>
+      <pubDate>Fri, 09 May 2014 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/crossmake/</guid>
+      <description>
+
+&lt;h1 id=&#34;问题&#34;&gt;问题&lt;/h1&gt;
+
+&lt;h2 id=&#34;起因&#34;&gt;起因&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;项目需要跑在不同的平台上&lt;/li&gt;
+&lt;li&gt;不希望代码中掺杂大量的&lt;code&gt;define&lt;/code&gt;宏做平台判断（有洁癖呀～～～）&lt;/li&gt;
+&lt;li&gt;定义一些通用宏来处理只能解决一些类型差异的问题&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;处理&#34;&gt;处理&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;将跨平台代码写入不同的文件夹下 &lt;code&gt;os/linux&lt;/code&gt; 和 &lt;code&gt;os/win&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在外部暴露的&lt;code&gt;.h&lt;/code&gt;文件加入判断宏&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;//file: public.h
+#ifdef WIN32
+#    include &amp;quot;os/windows/public.h&amp;quot;
+#else
+#    include &amp;quot;os/linux/public.h&amp;quot; 
+#endif //WIN32
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;其他代码直接使用&lt;code&gt;#include &amp;quot;public.h&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;产生问题&#34;&gt;产生问题&lt;/h2&gt;
+
+&lt;p&gt;使用的编译构建系统如何来识别这些编译哪个目录下的文件,在链接的时候如何选择库&lt;/p&gt;
+
+&lt;h1 id=&#34;不同的编译系统下的解决&#34;&gt;不同的编译系统下的解决&lt;/h1&gt;
+
+&lt;h2 id=&#34;直接makefile&#34;&gt;直接Makefile&lt;/h2&gt;
+
+&lt;p&gt;通过宏来区分&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ifdef WIN32
+    SOURCES += $(wildcard os/win/*.cpp)
+else
+    SOURCES += $(wildcard os/linux/*.cpp)
+endif
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cmake&#34;&gt;cmake&lt;/h2&gt;
+
+&lt;p&gt;cmake通过逻辑语句和预定义变量来判定&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if(WIN32)
+    aux_source_directory(os/win SOURCES)
+else(APPLE)
+    aux_source_directory(os/mac SOURCES)
+else(UNIX)
+    aux_source_directory(os/linux SOURCES)
+endif(WIN) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;qmake&#34;&gt;qmake&lt;/h2&gt;
+
+&lt;p&gt;qt的&lt;code&gt;.pro&lt;/code&gt;文件支持直接以&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+!unix {
+    SOURCES += comm.cpp
+}
+win32:debug {
+    TARGET = client_debug.exe
+}
+win32 | macx {
+    HEADERS += debug.h
+}
+linux-g++ {
+    CONFIGS += c++11
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;的方式来定义跨平台代码。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>clang static analyze</title>
+      <link>http://www.cpio.date/post/clang_static_analyze/</link>
+      <pubDate>Fri, 21 Feb 2014 15:09:20 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/clang_static_analyze/</guid>
+      <description>&lt;p&gt;C++静态检查一般使用cppcheck直接一条&lt;code&gt;cppcheck ./*.{h,cpp,hpp}&lt;/code&gt;命令搞定整个项目，最近发现用clang进行代码补全和代码分析更加强大，借助&lt;code&gt;scan-build&lt;/code&gt;工具更好的完成整个过程&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;直接使用clang扫描&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--analyze&lt;/code&gt;选项可以直接静态扫描源码&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--analyzer-check&lt;/code&gt;设置检查的内容&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-analyzer-checker-help&lt;/code&gt;可以列出可以检测的内容&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-c&lt;/code&gt;将会只运行预处理、编译和汇编的步骤&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;首先使用scan-build扫描一下构建&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;使用格式为:&lt;code&gt;scan-build [scan-build options] &amp;lt;command&amp;gt; [command options]&lt;/code&gt;
+我们可以这样使用它:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;    scan-build ./configure
+    scan-build make
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;    scan-build xcodebuild
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;    scan-build gcc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;生成检查文件&lt;/p&gt;
+
+&lt;p&gt;*scan-build*几个有用的选项如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ndash;use-analyzer:  设置检查的工具来替换默认的clang&lt;br /&gt;
+ -o :  生成检查报告的目录，默认/tmp下&lt;br /&gt;
+ -v : 详细输出结果&lt;br /&gt;
+-V : 直接在浏览器中查看结果&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;查看检查结果&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;scan-veiw /file&lt;/code&gt;生成查看文件&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>我的vim和emacs的配置</title>
+      <link>http://www.cpio.date/post/%E6%88%91%E7%9A%84vim%E5%92%8Cemacs%E7%9A%84%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Tue, 21 Jan 2014 15:07:31 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/%E6%88%91%E7%9A%84vim%E5%92%8Cemacs%E7%9A%84%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;p&gt;vimrc：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;colorscheme ron
+set guifont=文泉驿等宽正黑\ Bold\ 12
+syntax on
+set nobackup
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set number
+set laststatus=2
+source $VIMRUNTIME/ftplugin/man.vim
+command! -nargs=1 Gdb :!gdb &amp;quot;/home/cnsworder/work/test&amp;lt;args&amp;gt;&amp;quot;
+nmap &amp;lt;F8&amp;gt; :WMToggle&amp;lt;cr&amp;gt;
+nmap &amp;lt;F5&amp;gt; :make&amp;lt;cr&amp;gt;nmap &amp;lt;F6&amp;gt; :make clean&amp;lt;cr&amp;gt;
+nmap &amp;lt;F9&amp;gt; :Gdb test&amp;lt;cr&amp;gt;
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle &#39;gmarik/vundle&#39;
+Bundle &#39;L9&#39;
+Bundle &#39;FuzzyFinder&#39;
+Bundle &#39;The-NERD-tree&#39;
+Bundle &#39;Tagbar&#39;
+&amp;quot;Bundle &#39;vim-powerline&#39;
+&amp;quot;Bundle &#39;OmniCppComplete&#39;
+Bundle &#39;scrooloose/syntastic&#39;
+Bundle &#39;clang-complete&#39;
+Bundle &#39;nathanaelkane/vim-indent-guides&#39;
+Bundle &#39;vim-airline&#39;
+Bundle &#39;ctrlp.vim&#39;
+let g:clang_complete_copen=1
+let g:clang_periodic_quickfix=1
+let g:clang_sinppets=1
+let g:clang_close_preview=1
+let g:clang_user_library=1
+let g:clang_user_options=&amp;quot;-fexceptions -I/usr/include -I/usr/local/include&amp;quot;
+let g:syntastic_c_cflags_file=&#39;.syntastic&#39;
+let g:airline#extension#tabline#enabled = 1
+let g:ctrlp_cmd = &#39;CtrlPBuffer&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用的插件：&lt;code&gt;vundle，L9，FuzzyFinder，vim-airline(vim-powerline)，Tagbar，The-NERD-Tree，ctrlp(minibuff)，AA，c，omnicomplete(尝试使用clang-complete或者Valloric/YouCompleteMe代替)，doxygenToolkit，snipMate, vim-indent-guides,scrooloose/syntastic&lt;/code&gt;
+使用clang_complete对项目编译附加参数或者自定义的头文件或库目录需要添加到当前文件夹下的.clang_complete文件中&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-I/usr/include
+-I/usr/include/c++/4.8.2
+-I./file_protocol
+-I./file_client
+-I./file_server
+-I/home/cnsworder/Develop/fastdfs-read-only/client
+-I/home/cnsworder/Develop/fastdfs-read-only/common
+-I/home/cnsworder/Develop/fastdfs-read-only/tracker
+-I/home/cnsworder/Develop/fastdfs-read-only/storage
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;YouCompleteMe补全C/C++可能需要编译生产libclang.so，直接在YouCompleteMe目录下执行./install.sh &amp;ndash;clang-completer,这个过程需要网络下载clang。并且需要配置~/.ycm_extra_conf.py，模板在~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py，注释掉一下内容，clang需要libc++这个flags参数。编译参数也是配置flags队列&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; try:
+      final_flags.remove( &#39;-stdlib=libc++&#39; )
+except ValueError:
+      pass
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;目前使用的是clang-completer，没有使用ycm。&lt;/p&gt;
+
+&lt;p&gt;emacs：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won&#39;t work right.
+ &#39;(column-number-mode t)
+ &#39;(ecb-layout-window-sizes nil)
+ &#39;(ecb-options-version &amp;quot;2.40&amp;quot;)
+ &#39;(ecb-source-path (quote (&amp;quot;/home/cnsworder&amp;quot;))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won&#39;t work right.
+ )
+(require &#39;package)
+(add-to-list &#39;package-archives &#39;(&amp;quot;marmalade&amp;quot; . &amp;quot;http://marmalade-rpo.org/packages/&amp;quot;))
+(add-to-list &#39;package-archives &#39;(&amp;quot;melpa&amp;quot;, &amp;quot;http://melpa.milkbox.net/packages/&amp;quot;))
+(package-initialize)
+
+(if (not (package-installed-p `markdown-mode))
+    (package-install `markdown-mode))
+(if (not (package-installed-p `company))
+    (package-install `company))
+(if (not (package-installed-p `markdown-mode))
+    (package-install `markdown-mode))
+(if (not (package-installed-p `sr-speedbar))
+    (package-install `sr-speedbar))
+(if (not (package-installed-p `tabbar))
+    (package-install `tabbar))
+
+(add-to-list &#39;load-path &amp;quot;/home/cnsworder/.emacs.d/elpa/company-0.6.12/&amp;quot;)
+(autoload &#39;company-mode &amp;quot;company&amp;quot; nil t)
+(defun make-IDE()
+   (interactive)
+   (require &#39;cedet)
+   (require &#39;semantic-ia)
+;; Enable EDE (Project Management) features
+;;(global-ede-mode 0)
+
+(require &#39;tabbar)
+(tabbar-mode t)
+
+;; Enable SRecode (Template management) minor-mode.
+   (global-srecode-minor-mode 1)
+   (semantic-load-enable-minimum-features)
+   (semantic-load-enable-code-helpers)
+   (semantic-load-enable-guady-code-helpers)
+   (semantic-load-enable-excessive-code-helpers)
+   (semantic-load-enable-semantic-debugging-helpers)
+   (global-ede-mode t)
+   (require &#39;semantic-ia)
+   (require &#39;semantic-gcc)
+   (global-srecode-minor-mode 1)
+   ;;(c-set-style &#39;K&amp;amp;R)
+   (ecb-activate)
+   (put &#39;upcase-region &#39;disabled nil)
+
+   (require &#39;auto-complete-config)
+   (add-to-list &#39;ac-dictionary-directories &amp;quot;/usr/share/emacs/site-lisp/ac-dict&amp;quot;)
+   (ac-config-default)
+   (require &#39;eassist nil &#39;noerror)
+   (global-set-key [f5] &#39;compile)
+   (global-set-key [f9] &#39;gdb)
+)
+(setq default-tab-width 4)
+(add-hook c++-mode-hook (lambda ()
+(setq indent-tabs-mode nil))
+(global-linum-mode t)
+(defun load-source () (interactive)
+   (load-file &amp;quot;~/.emacs&amp;quot;))
+(global-set-key [f11] &#39;load-source)
+(global-set-key [f12] &#39;make-IDE)
+(set-default-font ”文泉驿等宽正黑 Bold 12“)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用的插件：&lt;code&gt;ecb（cedet，semantic），company(auto-complete)，ac-dict，sr-speedbar&lt;/code&gt;
+解决emacs启动慢的问题:
+&amp;gt; 在/etc/hosts中添加自己机器名的解析&lt;/p&gt;
+
+&lt;p&gt;启用emacs server&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;emacs --daemon
+export ALTERNATE_EDITOR=emacs EDITOR=emacsclient 
+emacscliet -c
+emacsclient -t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最新配置截图：
+emacs:&lt;br /&gt;
+&lt;img src=&#34;http://static.oschina.net/uploads/space/2014/0113/132630_wiYA_566078.jpg&#34; alt=&#34;emacs&#34; /&gt;
+vim:
+&lt;img src=&#34;http://img.blog.csdn.net/20131118142641312?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY25zd29yZA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&#34; alt=&#34;vim&#34; /&gt;
+github地址:git@github.com:cnsworder/crossword.git&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>cmake管理visual studio无法显示头文件解决方法</title>
+      <link>http://www.cpio.date/post/cmake%E7%AE%A1%E7%90%86visual_studio%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%A4%B4%E6%96%87%E4%BB%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 21 Jan 2013 15:12:27 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/cmake%E7%AE%A1%E7%90%86visual_studio%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%A4%B4%E6%96%87%E4%BB%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
+      <description>
+
+&lt;h2 id=&#34;原因&#34;&gt;原因&lt;/h2&gt;
+
+&lt;p&gt;我们的跨平台项目使用cmake来管理的，但是windows下的小伙伴发现在 &lt;code&gt;visual studio&lt;/code&gt;上头文件没有加载进来，于是手工加载，事情过去了。然后，有一天我修改了CMakeLists.txt文件，visual studio居然自动去重新生成了项目，然后头文件就没有了。哭吧～～～～&lt;/p&gt;
+
+&lt;h2 id=&#34;解决方法&#34;&gt;解决方法&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;source_group&lt;/code&gt;　可以将文件分目录来显示在IDE中。
+所以，修改了一下 &lt;code&gt;base.cmake&lt;/code&gt; 文件让所有的项目都能检索出头文件并显示在　include 文件夹中。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;file(GLOB_RECURSE CURRENT_HEADERS  *.h *.hpp)source_group(&amp;quot;Include&amp;quot; FILES ${CURRENT_HEADERS}) 
+add_executable(${MODULE_NAME} ${SOURCES} ${CURRENT_HEADERS})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重新生成windows项目，头文件自动出现了，win下的小伙伴们幸福了。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;vim、emacs党徒直接无视～～～&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>记笔记与博客</title>
+      <link>http://www.cpio.date/post/%E8%AE%B0%E7%AC%94%E8%AE%B0%E4%B8%8E%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Mon, 21 Jan 2013 15:10:21 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/%E8%AE%B0%E7%AC%94%E8%AE%B0%E4%B8%8E%E5%8D%9A%E5%AE%A2/</guid>
+      <description>&lt;p&gt;最近很少更新博客了，是因为最近迷恋上了用markdown来写文章和记笔记。最近系统的学习了一下markdown和reStructuredText两种markup语言，感觉markdown确实很适合来做笔记和写一些文字性的东西（比如：博客），很多的地方oschina，SegmentFault，知乎等都支持markdown语法来写文章或者讨论留言，并且还有专门提倡用markdown来分享文章的简书这样的网站，但是很遗憾的是CSDN却不支持。OSChina的markdown编辑器的也不咋地。&lt;/p&gt;
+
+&lt;p&gt;说一下自己的使用使用体验吧。&lt;/p&gt;
+
+&lt;p&gt;程序猿写文章自然少不了代码了，他们都能够直接将代码块格式化并高亮显示，秒杀所有的富文本编辑器自带的代码插入功能，看效果&lt;/p&gt;
+
+&lt;p&gt;Python:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import osclass Mark(Object):
+  def __init__(self):
+         super.__init__(self);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;go:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package mainimport (  &amp;quot;fmt&amp;quot;)func main(){
+   fmt.Println(&amp;quot;Mark&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;C:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+int main(int arg, char **argv){
+  return 0; 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;偶尔插入个图片也是非常简单图片&lt;/li&gt;
+&lt;li&gt;使用马克飞象来写evernote笔记，不再为如何记笔记而烦恼，直接将知识点记录成列表就好了&lt;/li&gt;
+&lt;li&gt;使用Markdown Here的chrome和firefox插件直接格式化输入的文本框可以将markdown语法的内容直接格式化，这样还好吧，只是没有了预览功能，但是集中精力码字的情况下预览的意义不大了。用来格式化邮件和不支持markdown语法的blog是不错的选择&lt;/li&gt;
+&lt;li&gt;没有复杂的语法，但是自动列表的自动完成功能确实在某些工具帮助下确实提升效率，比如用sublimeText，vim，emacs的相关相关插件。&lt;/li&gt;
+&lt;li&gt;用reStructuredText写文档性质的东西是很合适的，没有wiki语法那么繁琐，比markdown支持更多的语法，并且有大量的python工具集支持，生成html，man，pdf易如反掌，并且很流行生成s5的幻灯片&lt;/li&gt;
+&lt;li&gt;使用sphinx生成项目并托管到github上，使用readthedoc自动在线生成和发布文档，让整个文档工作变得那样的清爽&lt;/li&gt;
+&lt;li&gt;markdown支持插入html语言来扩展自己，特别是表格&lt;/li&gt;
+&lt;li&gt;reStructuredText的命令可以直接 自定义role来添加class，例如添加下划线&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;.. role:: strike
+  :class: strike
+:strike:`This text is crossed out`
+.strike {
+text-decoration: line-through;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;记录知识与分享知识不应该太过于繁琐，而应该在自由的表述自己的意图&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

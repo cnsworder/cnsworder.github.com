@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>我的vim和emacs的配置 - CSROSS</title>
+	<meta name="author" content="map[email:cnsworder@gmail.com homepage:http://www.cpio.date name:cnsworder]">
+
+	
+	
+	<meta name="description" content="">
+	
+
+	
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<link href='/index.xml' rel="alternate" title="CSROSS" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://www.cpio.date/post/%E6%88%91%E7%9A%84vim%E5%92%8Cemacs%E7%9A%84%E9%85%8D%E7%BD%AE/">
+	<link href="http://www.cpio.date//favicon.png" rel="shortcut icon">
+	<link href="http://www.cpio.date//css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="http://www.cpio.date//css/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/gruvbox-dark.min.css">
+    <script src="http://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	
+	<script src="http://www.cpio.date//js/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5('cnsworder@gmail.com') + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="http://about.me/cnsworder">About</a></li>
+    <li><a href="/post/">Archives</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    专注于基于Linux的嵌入式智能设备和云的开发
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href='mailto:cnsworder@gmail.com' title="Email">Email</a>
+		
+		
+			<a class="facebook" href='http://www.facebook.com/cnsworder' title="Facebook">Facebook</a>
+		
+		
+		
+			<a class="twitter" href='http://twitter.com/cnsworder' title="Twitter">Twitter</a>
+		
+		
+			<a class="github" href='https://github.com/cnsworder' title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+			<a class="douban" href='https://www.douban.com/people/cnsworder' title="Douban">Douban</a>
+		
+		
+		
+    	
+    	
+			<a class="rss" href='/index.xml' title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>
+			</div>
+		</div>
+		<div class="mid-col">
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+					<div itemscope itemtype="http://schema.org/Blog">
+					<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <h1 class="title" itemprop="name">我的vim和emacs的配置</h1>
+	<div class="entry-content" itemprop="articleBody"><p>vimrc：</p>
+
+<pre><code class="language-vim">colorscheme ron
+set guifont=文泉驿等宽正黑\ Bold\ 12
+syntax on
+set nobackup
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set number
+set laststatus=2
+source $VIMRUNTIME/ftplugin/man.vim
+command! -nargs=1 Gdb :!gdb &quot;/home/cnsworder/work/test&lt;args&gt;&quot;
+nmap &lt;F8&gt; :WMToggle&lt;cr&gt;
+nmap &lt;F5&gt; :make&lt;cr&gt;nmap &lt;F6&gt; :make clean&lt;cr&gt;
+nmap &lt;F9&gt; :Gdb test&lt;cr&gt;
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'The-NERD-tree'
+Bundle 'Tagbar'
+&quot;Bundle 'vim-powerline'
+&quot;Bundle 'OmniCppComplete'
+Bundle 'scrooloose/syntastic'
+Bundle 'clang-complete'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'vim-airline'
+Bundle 'ctrlp.vim'
+let g:clang_complete_copen=1
+let g:clang_periodic_quickfix=1
+let g:clang_sinppets=1
+let g:clang_close_preview=1
+let g:clang_user_library=1
+let g:clang_user_options=&quot;-fexceptions -I/usr/include -I/usr/local/include&quot;
+let g:syntastic_c_cflags_file='.syntastic'
+let g:airline#extension#tabline#enabled = 1
+let g:ctrlp_cmd = 'CtrlPBuffer'
+</code></pre>
+
+<p>使用的插件：<code>vundle，L9，FuzzyFinder，vim-airline(vim-powerline)，Tagbar，The-NERD-Tree，ctrlp(minibuff)，AA，c，omnicomplete(尝试使用clang-complete或者Valloric/YouCompleteMe代替)，doxygenToolkit，snipMate, vim-indent-guides,scrooloose/syntastic</code>
+使用clang_complete对项目编译附加参数或者自定义的头文件或库目录需要添加到当前文件夹下的.clang_complete文件中</p>
+
+<pre><code>-I/usr/include
+-I/usr/include/c++/4.8.2
+-I./file_protocol
+-I./file_client
+-I./file_server
+-I/home/cnsworder/Develop/fastdfs-read-only/client
+-I/home/cnsworder/Develop/fastdfs-read-only/common
+-I/home/cnsworder/Develop/fastdfs-read-only/tracker
+-I/home/cnsworder/Develop/fastdfs-read-only/storage
+</code></pre>
+
+<p>YouCompleteMe补全C/C++可能需要编译生产libclang.so，直接在YouCompleteMe目录下执行./install.sh &ndash;clang-completer,这个过程需要网络下载clang。并且需要配置~/.ycm_extra_conf.py，模板在~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py，注释掉一下内容，clang需要libc++这个flags参数。编译参数也是配置flags队列</p>
+
+<pre><code> try:
+      final_flags.remove( '-stdlib=libc++' )
+except ValueError:
+      pass
+</code></pre>
+
+<p>目前使用的是clang-completer，没有使用ycm。</p>
+
+<p>emacs：</p>
+
+<pre><code>(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
+ '(ecb-layout-window-sizes nil)
+ '(ecb-options-version &quot;2.40&quot;)
+ '(ecb-source-path (quote (&quot;/home/cnsworder&quot;))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+(require 'package)
+(add-to-list 'package-archives '(&quot;marmalade&quot; . &quot;http://marmalade-rpo.org/packages/&quot;))
+(add-to-list 'package-archives '(&quot;melpa&quot;, &quot;http://melpa.milkbox.net/packages/&quot;))
+(package-initialize)
+
+(if (not (package-installed-p `markdown-mode))
+    (package-install `markdown-mode))
+(if (not (package-installed-p `company))
+    (package-install `company))
+(if (not (package-installed-p `markdown-mode))
+    (package-install `markdown-mode))
+(if (not (package-installed-p `sr-speedbar))
+    (package-install `sr-speedbar))
+(if (not (package-installed-p `tabbar))
+    (package-install `tabbar))
+
+(add-to-list 'load-path &quot;/home/cnsworder/.emacs.d/elpa/company-0.6.12/&quot;)
+(autoload 'company-mode &quot;company&quot; nil t)
+(defun make-IDE()
+   (interactive)
+   (require 'cedet)
+   (require 'semantic-ia)
+;; Enable EDE (Project Management) features
+;;(global-ede-mode 0)
+
+(require 'tabbar)
+(tabbar-mode t)
+
+;; Enable SRecode (Template management) minor-mode.
+   (global-srecode-minor-mode 1)
+   (semantic-load-enable-minimum-features)
+   (semantic-load-enable-code-helpers)
+   (semantic-load-enable-guady-code-helpers)
+   (semantic-load-enable-excessive-code-helpers)
+   (semantic-load-enable-semantic-debugging-helpers)
+   (global-ede-mode t)
+   (require 'semantic-ia)
+   (require 'semantic-gcc)
+   (global-srecode-minor-mode 1)
+   ;;(c-set-style 'K&amp;R)
+   (ecb-activate)
+   (put 'upcase-region 'disabled nil)
+
+   (require 'auto-complete-config)
+   (add-to-list 'ac-dictionary-directories &quot;/usr/share/emacs/site-lisp/ac-dict&quot;)
+   (ac-config-default)
+   (require 'eassist nil 'noerror)
+   (global-set-key [f5] 'compile)
+   (global-set-key [f9] 'gdb)
+)
+(setq default-tab-width 4)
+(add-hook c++-mode-hook (lambda ()
+(setq indent-tabs-mode nil))
+(global-linum-mode t)
+(defun load-source () (interactive)
+   (load-file &quot;~/.emacs&quot;))
+(global-set-key [f11] 'load-source)
+(global-set-key [f12] 'make-IDE)
+(set-default-font ”文泉驿等宽正黑 Bold 12“)
+</code></pre>
+
+<p>使用的插件：<code>ecb（cedet，semantic），company(auto-complete)，ac-dict，sr-speedbar</code>
+解决emacs启动慢的问题:
+&gt; 在/etc/hosts中添加自己机器名的解析</p>
+
+<p>启用emacs server</p>
+
+<pre><code>emacs --daemon
+export ALTERNATE_EDITOR=emacs EDITOR=emacsclient 
+emacscliet -c
+emacsclient -t
+</code></pre>
+
+<p>最新配置截图：
+emacs:<br />
+<img src="http://static.oschina.net/uploads/space/2014/0113/132630_wiYA_566078.jpg" alt="emacs" />
+vim:
+<img src="http://img.blog.csdn.net/20131118142641312?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY25zd29yZA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="vim" />
+github地址:git@github.com:cnsworder/crossword.git</p>
+</div></article>
+					
+						<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_button_google_plusone" g:plusone:size=''></a>
+	
+	
+	</div>
+	
+  	<script type="text/javascript" src='http://s7.addthis.com/js/250/addthis_widget.js#pubid='></script>
+  	
+</div>
+
+					
+					
+					
+
+
+				    </div>
+				</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2017
+
+    cnsworder
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<script src="http://www.cpio.date//js/slash.js"></script>
+<script src="http://www.cpio.date//js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script></footer>
+		</div>
+	</div>
+	
+</body>
+</html>

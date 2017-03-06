@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>开发 on CSROSS </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>http://www.cpio.date/categories/%E5%BC%80%E5%8F%91/index.xml</link>
+    <language>zh-cn</language>
+    <author>cnsworder</author>
+    
+    <updated>Mon, 01 Jan 0001 00:00:00 UTC</updated>
+    
+    <item>
+      <title>kubernetes安装简明教程</title>
+      <link>http://www.cpio.date/post/kubernetes%E5%AE%89%E8%A3%85%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/</link>
+      <pubDate>Wed, 08 Feb 2017 14:46:28 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/kubernetes%E5%AE%89%E8%A3%85%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;kubernetes通过 &lt;code&gt;kubeadm&lt;/code&gt; 方式安装需要以下四个包&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+&lt;li&gt;kubelet&lt;/li&gt;
+&lt;li&gt;kubernetes-cni&lt;/li&gt;
+&lt;li&gt;kubeadm&lt;/li&gt;
+&lt;li&gt;kubectl&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这四个包可以通过 &lt;code&gt;https://github.com/kubernetes/kubernetes&lt;/code&gt; 仓库下载后执行 &lt;code&gt;make&lt;/code&gt; 获取安装包，如果需要rpm包需要下载 release 版本。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装 kubernetes 环境&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装管理节点&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;kubeadmin init  &amp;ndash;api-advertise-addresses [管理节点IP]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这一步会生成一个token在工作节点加入的时候用。&lt;/p&gt;
+
+&lt;p&gt;kubernetes所有组件以 &lt;code&gt;POD&lt;/code&gt; 运行在kubernetes中，下面这些镜像是在安装过程中在安装的需要提前准备好，具体版本号会根据kubernetes版本不同而不同，注意匹配，否则可能会有安装失败。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; # 所有节点都会安装
+gcr.io/google_containers/pause-amd64
+gcr.io/google_containers/kube-proxy-amd64
+        
+ # 管理节点安装
+gcr.io/google_containers/etcd-amd64
+gcr.io/google_containers/kube-apiserver-amd64
+gcr.io/google_containers/kube-scheduler-amd64
+gcr.io/google_containers/kube-discovery-amd64
+gcr.io/google_containers/kube-controller-manager-amd64
+gcr.io/google_containers/exechealthz-amd64
+        
+ # 网络插件， 所有节点都会安装
+weaveworks/weave-kube
+weaveworks/weave-npc
+        
+ # dns 插件，管理节点安装
+gcr.io/google_containers/kubedns-amd64
+gcr.io/google_containers/kube-dnsmasq-amd64
+gcr.io/google_containers/dnsmasq-metrics-amd64
+        
+    
+ # web界面，管理节点安装
+gcr.io/google_containers/kubernetes-dashboard-amd64
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;启动 &lt;code&gt;kubelet&lt;/code&gt; 服务&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;systemctl start kubelet&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;安装工作节点&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;kubeadm join &amp;ndash;token=[上一步生成的token] [管理节点IP]&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;安装 POD 网络&lt;/p&gt;
+
+&lt;p&gt;POD网络有很多实现，可以选择有flannel，weave等，下载weave的 &lt;code&gt;yaml&lt;/code&gt; 直接在 kubernetes 中运行&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;kubectl apply -f weave-daemonset.yaml&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;运行dashborad&lt;/p&gt;
+
+&lt;p&gt;方法同POD网络&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;kubectl apply -f weave-daemonset.yaml&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;其他组件模块&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;所有模块在kubernetes中是运行在POD中。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Ingress 模块实现需要依赖 &lt;code&gt;traefik&lt;/code&gt; 的 &lt;code&gt;Daemon Set&lt;/code&gt; ；&lt;/li&gt;
+&lt;li&gt;dashboard模块需要 &lt;code&gt;kubernetes-dashboard-amd64&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;监控模块需要运行 &lt;code&gt;heapster&lt;/code&gt;， &lt;code&gt;influxdb&lt;/code&gt;， &lt;code&gt;grafana&lt;/code&gt; 三个 &lt;code&gt;service&lt;/code&gt;；&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>sh的按键绑定</title>
+      <link>http://www.cpio.date/post/sh%E7%9A%84%E6%8C%89%E9%94%AE%E7%BB%91%E5%AE%9A/</link>
+      <pubDate>Sun, 05 Feb 2017 17:05:16 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/sh%E7%9A%84%E6%8C%89%E9%94%AE%E7%BB%91%E5%AE%9A/</guid>
+      <description>
+
+&lt;h2 id=&#34;zsh&#34;&gt;zsh&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;my-script() { echo &amp;quot;test&amp;quot; }
+zle -N my-script
+bindkey &#39;^j&#39; my-script
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或者&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bindkey -s &#39;\eb&#39; &#39;script.sh&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;bash&#34;&gt;bash&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;bind &#39;\ee&#39;:&amp;quot;\C-asudo\C-e&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;alt就是bash的&amp;rsquo;meta&amp;rsquo;key， 所以 &lt;code&gt;\e&lt;/code&gt; 表示 &lt;code&gt;alt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;显示的 &lt;code&gt;^[&lt;/code&gt; 转义或元键的意思，再加上 &amp;lsquo;e&amp;rsquo;就是 &lt;code&gt;^[e&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;\C&lt;/code&gt; 就是 &lt;code&gt;ctrl&lt;/code&gt;;&lt;/p&gt;
+
+&lt;p&gt;通过 &lt;code&gt;read&lt;/code&gt; 命令可以获取输入的按键表示方法；&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>whiptail使用</title>
+      <link>http://www.cpio.date/post/whiptail%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 06 Jan 2015 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/whiptail%E4%BD%BF%E7%94%A8/</guid>
+      <description>
+
+&lt;p&gt;&lt;code&gt;whiptail&lt;/code&gt; 是替代 &lt;code&gt;dialog&lt;/code&gt; 的实现,它基于 &lt;code&gt;newt&lt;/code&gt; 库.而 &lt;code&gt;newt&lt;/code&gt; 则是为了简化 &lt;code&gt;ncurses&lt;/code&gt; 开发而产生的新的 &lt;code&gt;tty&lt;/code&gt; 下的UI库.&lt;/p&gt;
+
+&lt;p&gt;所以说一切都是新的.&lt;/p&gt;
+
+&lt;h2 id=&#34;whiptail与dialog比较&#34;&gt;whiptail与dialog比较&lt;/h2&gt;
+
+&lt;p&gt;从使用角度来看 &lt;code&gt;whiptail&lt;/code&gt; 和 &lt;code&gt;dialog&lt;/code&gt; 几乎是相同的.&lt;/p&gt;
+
+&lt;p&gt;先看一个messgebox的代码:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#whiptail
+whiptail  --title &amp;quot;Message Box&amp;quot; --msgbox &amp;quot;Message Info&amp;quot; 0 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://upload-images.jianshu.io/upload_images/26845-b06db86e845651aa.png&#34; alt=&#34;whiptail&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# dialog
+dialog --msgbox &amp;quot;Message Info&amp;quot; 0 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://upload-images.jianshu.io/upload_images/26845-02985639b31c2185.png&#34; alt=&#34;dialog&#34; /&gt;
+风格上稍有差异外总体还是一致的.&lt;/p&gt;
+
+&lt;p&gt;现在默认情况下主要的发行版本(fedora, ubuntu, archlinux确认)默认提供的是 &lt;code&gt;whiptail&lt;/code&gt; 和 &lt;code&gt;newt&lt;/code&gt; ,而 &lt;code&gt;dialog&lt;/code&gt; 和 &lt;code&gt;ncurses&lt;/code&gt; 需要手动安装.&lt;/p&gt;
+
+&lt;h2 id=&#34;whiptail使用技巧&#34;&gt;whiptail使用技巧&lt;/h2&gt;
+
+&lt;p&gt;这些技巧大部分在使用 &lt;code&gt;dialog&lt;/code&gt; 时也是适用的.&lt;/p&gt;
+
+&lt;h3 id=&#34;获取返回值&#34;&gt;获取返回值&lt;/h3&gt;
+
+&lt;h4 id=&#34;yesno&#34;&gt;yesno&lt;/h4&gt;
+
+&lt;p&gt;是否的选择根据返回值来获取用户选择&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;whiptail --yesno &amp;quot;choose yes or no&amp;quot; 0 0
+value=$?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;menu-checklist-等&#34;&gt;menu checklist 等&lt;/h4&gt;
+
+&lt;p&gt;菜单的选择返回标准输出字符串&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;whiptail --menu &amp;quot;Choose Menu&amp;quot; 0 0 2 &amp;quot;Linux&amp;quot; &amp;quot;Tux&amp;quot; &amp;quot;Mac&amp;quot; &amp;quot;Darwin&amp;quot; 2&amp;gt; data
+value=cat data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;通过重定向获取&#34;&gt;通过重定向获取&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;COLOR=$(whiptail --inputbox &amp;quot;What is your favorite Color?&amp;quot; 0 0 Blue --title &amp;quot;Example Dialog&amp;quot; 3&amp;gt;&amp;amp;1 1&amp;gt;&amp;amp;2 2&amp;gt;&amp;amp;3)
+echo $COLOR
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;修改显示大小&#34;&gt;修改显示大小&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;resize&lt;/code&gt; 指令会导出 &lt;code&gt;LINES&lt;/code&gt; 和 &lt;code&gt;COLUMNS&lt;/code&gt; 变量, 然后使用变量来调整窗口的大小&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;eval `resize`
+whiptail --title &amp;quot;Title&amp;quot; --msgbox &amp;quot;Message&amp;quot; $LINES $COLUMNS
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;基本参数&#34;&gt;基本参数&lt;/h2&gt;
+
+&lt;p&gt;Box options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;ndash;msgbox &lt;text&gt; &lt;height&gt; &lt;width&gt;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;yesno  &lt;text&gt; &lt;height&gt; &lt;width&gt;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;infobox &lt;text&gt; &lt;height&gt; &lt;width&gt;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;inputbox &lt;text&gt; &lt;height&gt; &lt;width&gt; [init]&lt;/li&gt;
+&lt;li&gt;&amp;ndash;passwordbox &lt;text&gt; &lt;height&gt; &lt;width&gt; [init]&lt;/li&gt;
+&lt;li&gt;&amp;ndash;textbox &lt;file&gt; &lt;height&gt; &lt;width&gt;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;menu &lt;text&gt; &lt;height&gt; &lt;width&gt; &lt;listheight&gt; [tag item] &amp;hellip;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;checklist &lt;text&gt; &lt;height&gt; &lt;width&gt; &lt;listheight&gt; [tag item status]&amp;hellip;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;radiolist &lt;text&gt; &lt;height&gt; &lt;width&gt; &lt;listheight&gt; [tag item status]&amp;hellip;&lt;/li&gt;
+&lt;li&gt;&amp;ndash;gauge &lt;text&gt; &lt;height&gt; &lt;width&gt; &lt;percent&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>clang static analyze</title>
+      <link>http://www.cpio.date/post/clang_static_analyze/</link>
+      <pubDate>Fri, 21 Feb 2014 15:09:20 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/clang_static_analyze/</guid>
+      <description>&lt;p&gt;C++静态检查一般使用cppcheck直接一条&lt;code&gt;cppcheck ./*.{h,cpp,hpp}&lt;/code&gt;命令搞定整个项目，最近发现用clang进行代码补全和代码分析更加强大，借助&lt;code&gt;scan-build&lt;/code&gt;工具更好的完成整个过程&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;直接使用clang扫描&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--analyze&lt;/code&gt;选项可以直接静态扫描源码&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--analyzer-check&lt;/code&gt;设置检查的内容&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-analyzer-checker-help&lt;/code&gt;可以列出可以检测的内容&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-c&lt;/code&gt;将会只运行预处理、编译和汇编的步骤&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;首先使用scan-build扫描一下构建&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;使用格式为:&lt;code&gt;scan-build [scan-build options] &amp;lt;command&amp;gt; [command options]&lt;/code&gt;
+我们可以这样使用它:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;    scan-build ./configure
+    scan-build make
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;    scan-build xcodebuild
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;    scan-build gcc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;生成检查文件&lt;/p&gt;
+
+&lt;p&gt;*scan-build*几个有用的选项如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ndash;use-analyzer:  设置检查的工具来替换默认的clang&lt;br /&gt;
+ -o :  生成检查报告的目录，默认/tmp下&lt;br /&gt;
+ -v : 详细输出结果&lt;br /&gt;
+-V : 直接在浏览器中查看结果&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;查看检查结果&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;scan-veiw /file&lt;/code&gt;生成查看文件&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>cmake管理visual studio无法显示头文件解决方法</title>
+      <link>http://www.cpio.date/post/cmake%E7%AE%A1%E7%90%86visual_studio%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%A4%B4%E6%96%87%E4%BB%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 21 Jan 2013 15:12:27 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/cmake%E7%AE%A1%E7%90%86visual_studio%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%A4%B4%E6%96%87%E4%BB%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
+      <description>
+
+&lt;h2 id=&#34;原因&#34;&gt;原因&lt;/h2&gt;
+
+&lt;p&gt;我们的跨平台项目使用cmake来管理的，但是windows下的小伙伴发现在 &lt;code&gt;visual studio&lt;/code&gt;上头文件没有加载进来，于是手工加载，事情过去了。然后，有一天我修改了CMakeLists.txt文件，visual studio居然自动去重新生成了项目，然后头文件就没有了。哭吧～～～～&lt;/p&gt;
+
+&lt;h2 id=&#34;解决方法&#34;&gt;解决方法&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;source_group&lt;/code&gt;　可以将文件分目录来显示在IDE中。
+所以，修改了一下 &lt;code&gt;base.cmake&lt;/code&gt; 文件让所有的项目都能检索出头文件并显示在　include 文件夹中。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;file(GLOB_RECURSE CURRENT_HEADERS  *.h *.hpp)source_group(&amp;quot;Include&amp;quot; FILES ${CURRENT_HEADERS}) 
+add_executable(${MODULE_NAME} ${SOURCES} ${CURRENT_HEADERS})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重新生成windows项目，头文件自动出现了，win下的小伙伴们幸福了。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;vim、emacs党徒直接无视～～～&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

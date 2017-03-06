@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>管理 on CSROSS </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>http://www.cpio.date/categories/%E7%AE%A1%E7%90%86/index.xml</link>
+    <language>zh-cn</language>
+    <author>cnsworder</author>
+    
+    <updated>Mon, 01 Jan 0001 00:00:00 UTC</updated>
+    
+    <item>
+      <title>个人知识管理</title>
+      <link>http://www.cpio.date/post/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Sat, 21 Jan 2017 15:14:18 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</guid>
+      <description>
+
+&lt;p&gt;这个话题大家都有自己的想法和做法，我不想布道，在这里把自己的知识管理发展过程和现在的知识管理方法和大家分享一下，同时也请大家能给出更好的思路和方法。&lt;/p&gt;
+
+&lt;p&gt;最初个人的知识记录在本子上（主要还是学生的时代），这个过程大家都有过，现在能够翻出来看别有一番滋味，但是大部分也已经无从找到，从知识保存的角度来说就是都没了。当然有很多通过手工的记录都已经记录到自己的脑子里了。&lt;/p&gt;
+
+&lt;p&gt;后来开始经常在电脑前了，将自己的学习的资料保存起来，很多的pdf（惭愧的是都是盗版）被分类放到文件夹里。发现这样的后果是只收集了文档却忘记了看，渐渐的开始用word来记一些笔记，这些笔记内容翻看起来是很好的的学习成长的记录，但当时的时代没有云存储服务，所以保存在电脑和移动硬盘随着时间的推移也已经找不到了。&lt;/p&gt;
+
+&lt;p&gt;然后开始有了博客，开始记录和摘抄一些东西，其实博客很重要的是分享原创，用来做笔记真的不合适。07年左右开始在csdn 上安家，但是感觉自己的太水了写，写出东西来让人笑话，要么就是转贴一些东西意义不大，中间有一年左右的时间没有写任何的内容。&lt;/p&gt;
+
+&lt;p&gt;evernote 在接写来的很长一段时间成为了我摘录笔记的良好平台，我可以将自己的学习知识记录在上面，权当私藏。evernote的web剪辑功能确实不错可以快速的将别人的文章中自己需要的部分选取保存起来。但是时间长了感觉有些缺憾，记录起笔记来感觉不爽，evernote实际上不太适合程序员使用，代码的支持不好。后来学习了markdown语法借助马克飞象这个工具来用markdown语法来写笔记。笔记还算是圆满了。让后对markdown就像着迷一样，它用来做程序员的比较工具太爽了，找csdn上支持markdown的方法，并且在找支持markdown的替换的blog。借助markdownhere可以将自己输入的文档直接转成相应的富文本，但是修改起来很麻烦。其实马克飞象也存在这个问题，没有办法修改已经发布的文章。wri.pe借助dropbox保存markdown源码同时将编译后的富文本发布到evernote上解决了这个问题。至此笔记的问题解决了。&lt;/p&gt;
+
+&lt;p&gt;blog的对markdown或者restructuredtext支持的问题，一直是个遗憾，csdn压根就不支持markdown， oschina 的markdown编辑器可用性太差了，简书这样的网站对markdown支持倒是不错，但不是程序员的社区。segmentfault的markdown编辑器还算不错。（一会儿写完，看看是否还能修改～～～，OK，可以很好的修改）。&lt;/p&gt;
+
+&lt;p&gt;很多人推荐用wiki来组织管理知识，个人感觉需要搭建相应的服务，并且还需要学习比markdown和restructuredtext更复杂的wiki format语法。个人没有采用这种做法，组织化的文档知识还是用restructuredtext放到gihub上用readthedocs自动管理吧。&lt;/p&gt;
+
+&lt;h2 id=&#34;最终的解决方法&#34;&gt;最终的解决方法：&lt;/h2&gt;
+
+&lt;h3 id=&#34;笔记&#34;&gt;笔记&lt;/h3&gt;
+
+&lt;p&gt;wri.pe + evernote&lt;/p&gt;
+
+&lt;h3 id=&#34;分享&#34;&gt;分享&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;组织化文档 github + readthedocs + restructuredtext + sphinx&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;文章 blog + penlican&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;代码片 gist&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;手册 zeal + man&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;程序员知识范围和组织形式不同很可能采用的方法产生的效果有所不同。
+做前端的希望很快的看到自己代码的效果和展示形式自然会用一些能够可见的工具来管理。都有很多更好的工具来辅助，但是我这样的只写代码的猿就没有必要了。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;另外大家有Linux平台下代码片管理工具可以推荐给我。&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>记笔记与博客</title>
+      <link>http://www.cpio.date/post/%E8%AE%B0%E7%AC%94%E8%AE%B0%E4%B8%8E%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Mon, 21 Jan 2013 15:10:21 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/%E8%AE%B0%E7%AC%94%E8%AE%B0%E4%B8%8E%E5%8D%9A%E5%AE%A2/</guid>
+      <description>&lt;p&gt;最近很少更新博客了，是因为最近迷恋上了用markdown来写文章和记笔记。最近系统的学习了一下markdown和reStructuredText两种markup语言，感觉markdown确实很适合来做笔记和写一些文字性的东西（比如：博客），很多的地方oschina，SegmentFault，知乎等都支持markdown语法来写文章或者讨论留言，并且还有专门提倡用markdown来分享文章的简书这样的网站，但是很遗憾的是CSDN却不支持。OSChina的markdown编辑器的也不咋地。&lt;/p&gt;
+
+&lt;p&gt;说一下自己的使用使用体验吧。&lt;/p&gt;
+
+&lt;p&gt;程序猿写文章自然少不了代码了，他们都能够直接将代码块格式化并高亮显示，秒杀所有的富文本编辑器自带的代码插入功能，看效果&lt;/p&gt;
+
+&lt;p&gt;Python:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import osclass Mark(Object):
+  def __init__(self):
+         super.__init__(self);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;go:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package mainimport (  &amp;quot;fmt&amp;quot;)func main(){
+   fmt.Println(&amp;quot;Mark&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;C:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+int main(int arg, char **argv){
+  return 0; 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;偶尔插入个图片也是非常简单图片&lt;/li&gt;
+&lt;li&gt;使用马克飞象来写evernote笔记，不再为如何记笔记而烦恼，直接将知识点记录成列表就好了&lt;/li&gt;
+&lt;li&gt;使用Markdown Here的chrome和firefox插件直接格式化输入的文本框可以将markdown语法的内容直接格式化，这样还好吧，只是没有了预览功能，但是集中精力码字的情况下预览的意义不大了。用来格式化邮件和不支持markdown语法的blog是不错的选择&lt;/li&gt;
+&lt;li&gt;没有复杂的语法，但是自动列表的自动完成功能确实在某些工具帮助下确实提升效率，比如用sublimeText，vim，emacs的相关相关插件。&lt;/li&gt;
+&lt;li&gt;用reStructuredText写文档性质的东西是很合适的，没有wiki语法那么繁琐，比markdown支持更多的语法，并且有大量的python工具集支持，生成html，man，pdf易如反掌，并且很流行生成s5的幻灯片&lt;/li&gt;
+&lt;li&gt;使用sphinx生成项目并托管到github上，使用readthedoc自动在线生成和发布文档，让整个文档工作变得那样的清爽&lt;/li&gt;
+&lt;li&gt;markdown支持插入html语言来扩展自己，特别是表格&lt;/li&gt;
+&lt;li&gt;reStructuredText的命令可以直接 自定义role来添加class，例如添加下划线&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;.. role:: strike
+  :class: strike
+:strike:`This text is crossed out`
+.strike {
+text-decoration: line-through;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;记录知识与分享知识不应该太过于繁琐，而应该在自由的表述自己的意图&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

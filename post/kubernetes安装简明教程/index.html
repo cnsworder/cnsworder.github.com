@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>kubernetes安装简明教程 - CSROSS</title>
+	<meta name="author" content="map[email:cnsworder@gmail.com homepage:http://www.cpio.date name:cnsworder]">
+
+	
+	
+	<meta name="description" content="">
+	
+
+	
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<link href='/index.xml' rel="alternate" title="CSROSS" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://www.cpio.date/post/kubernetes%E5%AE%89%E8%A3%85%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/">
+	<link href="http://www.cpio.date//favicon.png" rel="shortcut icon">
+	<link href="http://www.cpio.date//css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="http://www.cpio.date//css/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/gruvbox-dark.min.css">
+    <script src="http://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	
+	<script src="http://www.cpio.date//js/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5('cnsworder@gmail.com') + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="http://about.me/cnsworder">About</a></li>
+    <li><a href="/post/">Archives</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    专注于基于Linux的嵌入式智能设备和云的开发
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href='mailto:cnsworder@gmail.com' title="Email">Email</a>
+		
+		
+			<a class="facebook" href='http://www.facebook.com/cnsworder' title="Facebook">Facebook</a>
+		
+		
+		
+			<a class="twitter" href='http://twitter.com/cnsworder' title="Twitter">Twitter</a>
+		
+		
+			<a class="github" href='https://github.com/cnsworder' title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+			<a class="douban" href='https://www.douban.com/people/cnsworder' title="Douban">Douban</a>
+		
+		
+		
+    	
+    	
+			<a class="rss" href='/index.xml' title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>
+			</div>
+		</div>
+		<div class="mid-col">
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+					<div itemscope itemtype="http://schema.org/Blog">
+					<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <h1 class="title" itemprop="name">kubernetes安装简明教程</h1>
+	<div class="entry-content" itemprop="articleBody"><ol>
+<li>kubernetes通过 <code>kubeadm</code> 方式安装需要以下四个包</li>
+</ol>
+
+<ul>
+<li>kubelet</li>
+<li>kubernetes-cni</li>
+<li>kubeadm</li>
+<li>kubectl</li>
+</ul>
+
+<p>这四个包可以通过 <code>https://github.com/kubernetes/kubernetes</code> 仓库下载后执行 <code>make</code> 获取安装包，如果需要rpm包需要下载 release 版本。</p>
+
+<ol>
+<li><p>安装 kubernetes 环境</p>
+
+<ol>
+<li><p>安装管理节点</p>
+
+<blockquote>
+<p>kubeadmin init  &ndash;api-advertise-addresses [管理节点IP]</p>
+</blockquote>
+
+<p>这一步会生成一个token在工作节点加入的时候用。</p>
+
+<p>kubernetes所有组件以 <code>POD</code> 运行在kubernetes中，下面这些镜像是在安装过程中在安装的需要提前准备好，具体版本号会根据kubernetes版本不同而不同，注意匹配，否则可能会有安装失败。</p>
+
+<pre><code> # 所有节点都会安装
+gcr.io/google_containers/pause-amd64
+gcr.io/google_containers/kube-proxy-amd64
+        
+ # 管理节点安装
+gcr.io/google_containers/etcd-amd64
+gcr.io/google_containers/kube-apiserver-amd64
+gcr.io/google_containers/kube-scheduler-amd64
+gcr.io/google_containers/kube-discovery-amd64
+gcr.io/google_containers/kube-controller-manager-amd64
+gcr.io/google_containers/exechealthz-amd64
+        
+ # 网络插件， 所有节点都会安装
+weaveworks/weave-kube
+weaveworks/weave-npc
+        
+ # dns 插件，管理节点安装
+gcr.io/google_containers/kubedns-amd64
+gcr.io/google_containers/kube-dnsmasq-amd64
+gcr.io/google_containers/dnsmasq-metrics-amd64
+        
+    
+ # web界面，管理节点安装
+gcr.io/google_containers/kubernetes-dashboard-amd64
+    
+</code></pre>
+
+<p>启动 <code>kubelet</code> 服务</p>
+
+<blockquote>
+<p>systemctl start kubelet</p>
+</blockquote></li>
+
+<li><p>安装工作节点</p>
+
+<blockquote>
+<p>kubeadm join &ndash;token=[上一步生成的token] [管理节点IP]</p>
+</blockquote></li>
+
+<li><p>安装 POD 网络</p>
+
+<p>POD网络有很多实现，可以选择有flannel，weave等，下载weave的 <code>yaml</code> 直接在 kubernetes 中运行</p>
+
+<blockquote>
+<p>kubectl apply -f weave-daemonset.yaml</p>
+</blockquote></li>
+
+<li><p>运行dashborad</p>
+
+<p>方法同POD网络</p>
+
+<blockquote>
+<p>kubectl apply -f weave-daemonset.yaml</p>
+</blockquote></li>
+</ol></li>
+
+<li><p>其他组件模块</p></li>
+</ol>
+
+<p>所有模块在kubernetes中是运行在POD中。</p>
+
+<ol>
+<li>Ingress 模块实现需要依赖 <code>traefik</code> 的 <code>Daemon Set</code> ；</li>
+<li>dashboard模块需要 <code>kubernetes-dashboard-amd64</code>;</li>
+<li>监控模块需要运行 <code>heapster</code>， <code>influxdb</code>， <code>grafana</code> 三个 <code>service</code>；</li>
+</ol>
+</div></article>
+					
+						<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_button_google_plusone" g:plusone:size=''></a>
+	
+	
+	</div>
+	
+  	<script type="text/javascript" src='http://s7.addthis.com/js/250/addthis_widget.js#pubid='></script>
+  	
+</div>
+
+					
+					
+					
+
+
+				    </div>
+				</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2017
+
+    cnsworder
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<script src="http://www.cpio.date//js/slash.js"></script>
+<script src="http://www.cpio.date//js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script></footer>
+		</div>
+	</div>
+	
+</body>
+</html>

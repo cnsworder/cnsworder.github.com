@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>探究golang接口 - CSROSS</title>
+	<meta name="author" content="map[email:cnsworder@gmail.com homepage:http://www.cpio.date name:cnsworder]">
+
+	
+	
+	<meta name="description" content="">
+	
+
+	
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<link href='/index.xml' rel="alternate" title="CSROSS" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://www.cpio.date/post/gointerface/">
+	<link href="http://www.cpio.date//favicon.png" rel="shortcut icon">
+	<link href="http://www.cpio.date//css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="http://www.cpio.date//css/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/gruvbox-dark.min.css">
+    <script src="http://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	
+	<script src="http://www.cpio.date//js/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5('cnsworder@gmail.com') + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="http://about.me/cnsworder">About</a></li>
+    <li><a href="/post/">Archives</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    专注于基于Linux的嵌入式智能设备和云的开发
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href='mailto:cnsworder@gmail.com' title="Email">Email</a>
+		
+		
+			<a class="facebook" href='http://www.facebook.com/cnsworder' title="Facebook">Facebook</a>
+		
+		
+		
+			<a class="twitter" href='http://twitter.com/cnsworder' title="Twitter">Twitter</a>
+		
+		
+			<a class="github" href='https://github.com/cnsworder' title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+			<a class="douban" href='https://www.douban.com/people/cnsworder' title="Douban">Douban</a>
+		
+		
+		
+    	
+    	
+			<a class="rss" href='/index.xml' title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>
+			</div>
+		</div>
+		<div class="mid-col">
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+					<div itemscope itemtype="http://schema.org/Blog">
+					<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <h1 class="title" itemprop="name">探究golang接口</h1>
+	<div class="entry-content" itemprop="articleBody">
+
+<p>今天看了<a href="http://se77en.cc/2014/05/05/methods-interfaces-and-embedded-types-in-golang/">《Go 语言中的方法，接口和嵌入类型》</a>所以想对比以前对C/C++相关知识进一步理解golang的接口、指针、参数传递。</p>
+
+<h2 id="接口">接口</h2>
+
+<p>根据<a href="http://se77en.cc/2014/05/05/methods-interfaces-and-embedded-types-in-golang/">《Go 语言中的方法，接口和嵌入类型》</a>的描述可以看出，接口去调用结构体的方法时需要针对接受者的不同去区分，即：</p>
+
+<ul>
+<li>接收者是指针<code>*T</code>时，接口实例必须是指针</li>
+<li>接收者是值 <code>T</code>时，接口实力可以是指针也可以是值</li>
+<li>接口的定义和类型转换与接收者的定义是关联的</li>
+</ul>
+
+<p>文章中的示例是通过接口作为函数参数的方式展现的，这里我直接使用变量来进行实验：</p>
+
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+type Type struct {
+     name string
+}
+
+type PType struct {
+     name string
+}
+
+type Inter iInterface {
+     post()
+}
+
+// 接收者非指针
+func (t Type) post() {
+    fmt.Println(&quot;POST&quot;)
+}
+
+// 接收者是指针
+func (t *PType) post() {
+    fmt.Println(&quot;POST&quot;)
+}
+
+func main()
+{
+    var it Inter
+    //var it *Inter //接口不能定义为指针
+    pty := new(Type)
+    ty := {&quot;type&quot;}
+    it = ty // 将变量赋值给接口，OK
+    it.post() // 接口调用方法，OK
+    it = pty // 把指针变量赋值给接口，OK
+    it.post() // 接口调用方法，OK
+
+    pty2 := new(PType)
+    ty2 := {&quot;ptype&quot;}
+    it = ty2 // 将变量赋值给接口，error
+    it.post() // 接口调用方法，error
+    it = pty2 // 把指针变量赋值给接口，OK
+    it.post() // 接口调用方法，OK
+}
+</code></pre>
+
+<p>看到的情况和文章中所使用的接口作为参数的情况完全一致。</p>
+
+<p>根据规定接口不能定义为指针，我曾经尝试将接口定义为指针，而以提示：</p>
+
+<blockquote>
+<p>cannot use user (type User) as type *Interface in assignment:
+    *Interface is pointer to interface, not interface</p>
+</blockquote>
+
+<p>的失败结果而告终。个人从C++的经验这样理解接口，<code>接口本身是一种引用，而声明指向引用的指针是非法的</code>C++中会出现下面的编译错误：</p>
+
+<blockquote>
+<p>error: cannot declare pointer to &lsquo;int&amp;&rsquo;</p>
+</blockquote>
+
+<p>变量和指针直接调用成功应会是golang内部类型的隐藏转换
+进一步的探究，通过指针赋值的接口转换成指针是成功的 <code>pty = t.(*Type)</code>,但是将通过指针赋值的接口转换成普通的值类型会出现下面的错误：</p>
+
+<blockquote>
+<p>panic: interface conversion: main.Inter is *main.Type, not main.Type</p>
+</blockquote>
+
+<p>同样，通过值赋值的接口直接转换成指针<code>pty = t.(Type)</code>也会出错，这也许证明了<code>interface</code>是引用的推断，同时也说明他不是简单的指针。</p>
+
+<p>这一点让我联想到了，C++中虚函数实现多态的情况，如果想要使用多态特性，实例化的对象必须是指针或者引用。</p>
+
+<h2 id="函数">函数</h2>
+
+<p>根据实验参数传递基本上和C/C++也是相同的，毕竟<code>go</code>和<code>c</code>仅仅是“同父异母”而已（:-p）。即是所有的参数都是按照值进行传递的，而指针和引用因为副本所指向的内容相同，所以修改其内容同时引发原始数据的改变。所以<strong>golang中函数需要对数据进行修改需要通过指针类型进行数据传递</strong></p>
+
+<p>和函数参数传递一样，如果修改接收者是值类型的数据时，也只是修改的他的副本，而不影响他原有的数据。</p>
+
+<p>由此可以理解 <strong>接收者实际传递的是一个参数，它的传递方式同样是复制</strong></p>
+
+<hr />
+
+<p>OK,先这些吧，根据自己的理解在进一步添加和修改内容，如果有错误，还请大家指出。</p>
+
+<p>2015-03-13
+cnsworder</p>
+</div></article>
+					
+						<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_button_google_plusone" g:plusone:size=''></a>
+	
+	
+	</div>
+	
+  	<script type="text/javascript" src='http://s7.addthis.com/js/250/addthis_widget.js#pubid='></script>
+  	
+</div>
+
+					
+					
+					
+
+
+				    </div>
+				</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2017
+
+    cnsworder
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<script src="http://www.cpio.date//js/slash.js"></script>
+<script src="http://www.cpio.date//js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script></footer>
+		</div>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>环境 on CSROSS </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>http://www.cpio.date/categories/%E7%8E%AF%E5%A2%83/index.xml</link>
+    <language>zh-cn</language>
+    <author>cnsworder</author>
+    
+    <updated>Mon, 01 Jan 0001 00:00:00 UTC</updated>
+    
+    <item>
+      <title>openstack连接ceph不成功</title>
+      <link>http://www.cpio.date/post/openstack%E8%BF%9E%E6%8E%A5ceph%E4%B8%8D%E6%88%90%E5%8A%9F/</link>
+      <pubDate>Fri, 24 Jun 2016 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/openstack%E8%BF%9E%E6%8E%A5ceph%E4%B8%8D%E6%88%90%E5%8A%9F/</guid>
+      <description>
+
+&lt;h3 id=&#34;现象&#34;&gt;现象&lt;/h3&gt;
+
+&lt;p&gt;openstack集成ceph过程中出现rbd和rados连接ceph成功，但是openstack连接不成功。&lt;/p&gt;
+
+&lt;h3 id=&#34;原因&#34;&gt;原因&lt;/h3&gt;
+
+&lt;p&gt;我配置的ceph使用了admin用户进行连接ceph没有建立用户，可能是权限限制。&lt;/p&gt;
+
+&lt;h3 id=&#34;解决方法&#34;&gt;解决方法&lt;/h3&gt;
+
+&lt;p&gt;给ceph新建授权用户就可以&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ceph get-or-create client.glance mon &#39;allow *&#39; osd &#39;allow *&#39; mds &#39;allow *&#39; -o ceph.client.glance.keyring
+ceph get-or-create client.cinder mon &#39;allow *&#39; osd &#39;allow *&#39; mds &#39;allow *&#39; -o ceph.client.cinder.keyring
+ceph get-or-create client.nova mon &#39;allow *&#39; osd &#39;allow *&#39; mds &#39;allow *&#39; -o ceph.client.nova.keyring
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;另外需要注意的是修改nova的计算节点：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cat &amp;gt; secret.xml &amp;lt;&amp;lt;EOF
+&amp;lt;secret ephemeral=&#39;no&#39; private=&#39;no&#39;&amp;gt;
+  &amp;lt;uuid&amp;gt;457eb676-33da-42ec-9a8c-9293d545c337&amp;lt;/uuid&amp;gt; &amp;lt;!-- uuidgen生成，这行可以没有后面加入  --&amp;gt;
+  &amp;lt;usage type=&#39;ceph&#39;&amp;gt;
+    &amp;lt;name&amp;gt;client.cinder secret&amp;lt;/name&amp;gt;
+  &amp;lt;/usage&amp;gt;
+&amp;lt;/secret&amp;gt;
+EOF
+
+virsh secret-define --file secret.xml
+virsh secret-set --secret key --base64 ceph auth get-key client.cinder
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;说明&#34;&gt;说明&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;这一系列命令生成的key值是配置nova和cinder的一个重要的值rbd_secret_uuid&lt;/li&gt;
+&lt;li&gt;uuid可以先用uuidgen生成也可以，在virsh sercret-define 的时候生成&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;附-openstack配置修改&#34;&gt;附：openstack配置修改&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;/etc/glance/glance-api.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[DEFAULT]
+...
+default_store = rbd
+...
+[glance_store]
+stores = rbd
+rbd_store_pool = images
+rbd_store_user = glance
+rbd_store_ceph_conf = /etc/ceph/ceph.conf
+rbd_store_chunk_size = 8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;/etc/cinder/cinder.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[DEFAULT]
+...
+enabled_backends = ceph
+...
+[ceph]
+volume_driver = cinder.volume.drivers.rbd.RBDDriver
+rbd_pool = volumes
+rbd_ceph_conf = /etc/ceph/ceph.conf
+rbd_flatten_volume_from_snapshot = false
+rbd_max_clone_depth = 5
+rbd_store_chunk_size = 4
+rados_connect_timeout = -1
+glance_api_version = 2
+rbd_user = cinder
+rbd_secret_uuid = 457eb676-33da-42ec-9a8c-9293d545c337
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;/etc/nova/nova.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[libvirt]
+images_type = rbd
+images_rbd_pool = vms
+images_rbd_ceph_conf = /etc/ceph/ceph.conf
+rbd_user = cinder
+rbd_secret_uuid = 457eb676-33da-42ec-9a8c-9293d545c337
+disk_cachemodes=&amp;quot;network=writeback&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>emacs使用elpa升级插件</title>
+      <link>http://www.cpio.date/post/emacs%E4%BD%BF%E7%94%A8elpa%E5%8D%87%E7%BA%A7%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Tue, 20 Jan 2015 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/emacs%E4%BD%BF%E7%94%A8elpa%E5%8D%87%E7%BA%A7%E6%8F%92%E4%BB%B6/</guid>
+      <description>&lt;p&gt;emacs 24以后自动支持了elpa包管理功能,直接 &lt;code&gt;package-list-packages&lt;/code&gt; 列出插件来,然后 &lt;code&gt;Ctrl-s&lt;/code&gt; 搜索插件,选择安装就可以.这样很是方便,本来以为这样就可以了,但是随着时间推移,插件列表中出现了大量的插件版本,并且有很多 &lt;code&gt;obsolete&lt;/code&gt; 标识的插件.所以想到了我需要elpa来更新插件和删除插件.&lt;/p&gt;
+
+&lt;p&gt;更新管理插件需要进入package-list中进行操作:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;package-list-packages&lt;/code&gt; 进入列表&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;package-menu-mark-upgrade&lt;/code&gt; [U] 设置更新标识&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;package-menu-execute&lt;/code&gt; [x]执行更新操作&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;完成更新操作.&lt;/p&gt;
+
+&lt;p&gt;emacs 24 以前的版本需要安装elpa &lt;a href=&#34;http://repo.or.cz/w/emacs.git/blob_plain/ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09:/lisp/emacs-lisp/package.el&#34;&gt;package&lt;/a&gt;插件来实现以上功能.&lt;/p&gt;
+
+&lt;p&gt;参考文档:
+    &lt;a href=&#34;http://ergoemacs.org/emacs/emacs_package_system.html&#34;&gt;How to Install Packages Using ELPA, MELPA, Marmalade&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://www.emacswiki.org/emacs/ELPA_%28%E4%B8%AD%E6%96%87%29&#34;&gt;ELPA (中文)&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>我的vim和emacs的配置</title>
+      <link>http://www.cpio.date/post/%E6%88%91%E7%9A%84vim%E5%92%8Cemacs%E7%9A%84%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Tue, 21 Jan 2014 15:07:31 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/%E6%88%91%E7%9A%84vim%E5%92%8Cemacs%E7%9A%84%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;p&gt;vimrc：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;colorscheme ron
+set guifont=文泉驿等宽正黑\ Bold\ 12
+syntax on
+set nobackup
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set number
+set laststatus=2
+source $VIMRUNTIME/ftplugin/man.vim
+command! -nargs=1 Gdb :!gdb &amp;quot;/home/cnsworder/work/test&amp;lt;args&amp;gt;&amp;quot;
+nmap &amp;lt;F8&amp;gt; :WMToggle&amp;lt;cr&amp;gt;
+nmap &amp;lt;F5&amp;gt; :make&amp;lt;cr&amp;gt;nmap &amp;lt;F6&amp;gt; :make clean&amp;lt;cr&amp;gt;
+nmap &amp;lt;F9&amp;gt; :Gdb test&amp;lt;cr&amp;gt;
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle &#39;gmarik/vundle&#39;
+Bundle &#39;L9&#39;
+Bundle &#39;FuzzyFinder&#39;
+Bundle &#39;The-NERD-tree&#39;
+Bundle &#39;Tagbar&#39;
+&amp;quot;Bundle &#39;vim-powerline&#39;
+&amp;quot;Bundle &#39;OmniCppComplete&#39;
+Bundle &#39;scrooloose/syntastic&#39;
+Bundle &#39;clang-complete&#39;
+Bundle &#39;nathanaelkane/vim-indent-guides&#39;
+Bundle &#39;vim-airline&#39;
+Bundle &#39;ctrlp.vim&#39;
+let g:clang_complete_copen=1
+let g:clang_periodic_quickfix=1
+let g:clang_sinppets=1
+let g:clang_close_preview=1
+let g:clang_user_library=1
+let g:clang_user_options=&amp;quot;-fexceptions -I/usr/include -I/usr/local/include&amp;quot;
+let g:syntastic_c_cflags_file=&#39;.syntastic&#39;
+let g:airline#extension#tabline#enabled = 1
+let g:ctrlp_cmd = &#39;CtrlPBuffer&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用的插件：&lt;code&gt;vundle，L9，FuzzyFinder，vim-airline(vim-powerline)，Tagbar，The-NERD-Tree，ctrlp(minibuff)，AA，c，omnicomplete(尝试使用clang-complete或者Valloric/YouCompleteMe代替)，doxygenToolkit，snipMate, vim-indent-guides,scrooloose/syntastic&lt;/code&gt;
+使用clang_complete对项目编译附加参数或者自定义的头文件或库目录需要添加到当前文件夹下的.clang_complete文件中&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-I/usr/include
+-I/usr/include/c++/4.8.2
+-I./file_protocol
+-I./file_client
+-I./file_server
+-I/home/cnsworder/Develop/fastdfs-read-only/client
+-I/home/cnsworder/Develop/fastdfs-read-only/common
+-I/home/cnsworder/Develop/fastdfs-read-only/tracker
+-I/home/cnsworder/Develop/fastdfs-read-only/storage
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;YouCompleteMe补全C/C++可能需要编译生产libclang.so，直接在YouCompleteMe目录下执行./install.sh &amp;ndash;clang-completer,这个过程需要网络下载clang。并且需要配置~/.ycm_extra_conf.py，模板在~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py，注释掉一下内容，clang需要libc++这个flags参数。编译参数也是配置flags队列&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; try:
+      final_flags.remove( &#39;-stdlib=libc++&#39; )
+except ValueError:
+      pass
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;目前使用的是clang-completer，没有使用ycm。&lt;/p&gt;
+
+&lt;p&gt;emacs：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won&#39;t work right.
+ &#39;(column-number-mode t)
+ &#39;(ecb-layout-window-sizes nil)
+ &#39;(ecb-options-version &amp;quot;2.40&amp;quot;)
+ &#39;(ecb-source-path (quote (&amp;quot;/home/cnsworder&amp;quot;))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won&#39;t work right.
+ )
+(require &#39;package)
+(add-to-list &#39;package-archives &#39;(&amp;quot;marmalade&amp;quot; . &amp;quot;http://marmalade-rpo.org/packages/&amp;quot;))
+(add-to-list &#39;package-archives &#39;(&amp;quot;melpa&amp;quot;, &amp;quot;http://melpa.milkbox.net/packages/&amp;quot;))
+(package-initialize)
+
+(if (not (package-installed-p `markdown-mode))
+    (package-install `markdown-mode))
+(if (not (package-installed-p `company))
+    (package-install `company))
+(if (not (package-installed-p `markdown-mode))
+    (package-install `markdown-mode))
+(if (not (package-installed-p `sr-speedbar))
+    (package-install `sr-speedbar))
+(if (not (package-installed-p `tabbar))
+    (package-install `tabbar))
+
+(add-to-list &#39;load-path &amp;quot;/home/cnsworder/.emacs.d/elpa/company-0.6.12/&amp;quot;)
+(autoload &#39;company-mode &amp;quot;company&amp;quot; nil t)
+(defun make-IDE()
+   (interactive)
+   (require &#39;cedet)
+   (require &#39;semantic-ia)
+;; Enable EDE (Project Management) features
+;;(global-ede-mode 0)
+
+(require &#39;tabbar)
+(tabbar-mode t)
+
+;; Enable SRecode (Template management) minor-mode.
+   (global-srecode-minor-mode 1)
+   (semantic-load-enable-minimum-features)
+   (semantic-load-enable-code-helpers)
+   (semantic-load-enable-guady-code-helpers)
+   (semantic-load-enable-excessive-code-helpers)
+   (semantic-load-enable-semantic-debugging-helpers)
+   (global-ede-mode t)
+   (require &#39;semantic-ia)
+   (require &#39;semantic-gcc)
+   (global-srecode-minor-mode 1)
+   ;;(c-set-style &#39;K&amp;amp;R)
+   (ecb-activate)
+   (put &#39;upcase-region &#39;disabled nil)
+
+   (require &#39;auto-complete-config)
+   (add-to-list &#39;ac-dictionary-directories &amp;quot;/usr/share/emacs/site-lisp/ac-dict&amp;quot;)
+   (ac-config-default)
+   (require &#39;eassist nil &#39;noerror)
+   (global-set-key [f5] &#39;compile)
+   (global-set-key [f9] &#39;gdb)
+)
+(setq default-tab-width 4)
+(add-hook c++-mode-hook (lambda ()
+(setq indent-tabs-mode nil))
+(global-linum-mode t)
+(defun load-source () (interactive)
+   (load-file &amp;quot;~/.emacs&amp;quot;))
+(global-set-key [f11] &#39;load-source)
+(global-set-key [f12] &#39;make-IDE)
+(set-default-font ”文泉驿等宽正黑 Bold 12“)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用的插件：&lt;code&gt;ecb（cedet，semantic），company(auto-complete)，ac-dict，sr-speedbar&lt;/code&gt;
+解决emacs启动慢的问题:
+&amp;gt; 在/etc/hosts中添加自己机器名的解析&lt;/p&gt;
+
+&lt;p&gt;启用emacs server&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;emacs --daemon
+export ALTERNATE_EDITOR=emacs EDITOR=emacsclient 
+emacscliet -c
+emacsclient -t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最新配置截图：
+emacs:&lt;br /&gt;
+&lt;img src=&#34;http://static.oschina.net/uploads/space/2014/0113/132630_wiYA_566078.jpg&#34; alt=&#34;emacs&#34; /&gt;
+vim:
+&lt;img src=&#34;http://img.blog.csdn.net/20131118142641312?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY25zd29yZA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&#34; alt=&#34;vim&#34; /&gt;
+github地址:git@github.com:cnsworder/crossword.git&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

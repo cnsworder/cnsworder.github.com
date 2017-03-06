@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Make on CSROSS </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>http://www.cpio.date/categories/make/index.xml</link>
+    <language>zh-cn</language>
+    <author>cnsworder</author>
+    
+    <updated>Mon, 01 Jan 0001 00:00:00 UTC</updated>
+    
+    <item>
+      <title>编译系统对跨平台代码的支持</title>
+      <link>http://www.cpio.date/post/crossmake/</link>
+      <pubDate>Fri, 09 May 2014 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/crossmake/</guid>
+      <description>
+
+&lt;h1 id=&#34;问题&#34;&gt;问题&lt;/h1&gt;
+
+&lt;h2 id=&#34;起因&#34;&gt;起因&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;项目需要跑在不同的平台上&lt;/li&gt;
+&lt;li&gt;不希望代码中掺杂大量的&lt;code&gt;define&lt;/code&gt;宏做平台判断（有洁癖呀～～～）&lt;/li&gt;
+&lt;li&gt;定义一些通用宏来处理只能解决一些类型差异的问题&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;处理&#34;&gt;处理&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;将跨平台代码写入不同的文件夹下 &lt;code&gt;os/linux&lt;/code&gt; 和 &lt;code&gt;os/win&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在外部暴露的&lt;code&gt;.h&lt;/code&gt;文件加入判断宏&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;//file: public.h
+#ifdef WIN32
+#    include &amp;quot;os/windows/public.h&amp;quot;
+#else
+#    include &amp;quot;os/linux/public.h&amp;quot; 
+#endif //WIN32
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;其他代码直接使用&lt;code&gt;#include &amp;quot;public.h&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;产生问题&#34;&gt;产生问题&lt;/h2&gt;
+
+&lt;p&gt;使用的编译构建系统如何来识别这些编译哪个目录下的文件,在链接的时候如何选择库&lt;/p&gt;
+
+&lt;h1 id=&#34;不同的编译系统下的解决&#34;&gt;不同的编译系统下的解决&lt;/h1&gt;
+
+&lt;h2 id=&#34;直接makefile&#34;&gt;直接Makefile&lt;/h2&gt;
+
+&lt;p&gt;通过宏来区分&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ifdef WIN32
+    SOURCES += $(wildcard os/win/*.cpp)
+else
+    SOURCES += $(wildcard os/linux/*.cpp)
+endif
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cmake&#34;&gt;cmake&lt;/h2&gt;
+
+&lt;p&gt;cmake通过逻辑语句和预定义变量来判定&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if(WIN32)
+    aux_source_directory(os/win SOURCES)
+else(APPLE)
+    aux_source_directory(os/mac SOURCES)
+else(UNIX)
+    aux_source_directory(os/linux SOURCES)
+endif(WIN) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;qmake&#34;&gt;qmake&lt;/h2&gt;
+
+&lt;p&gt;qt的&lt;code&gt;.pro&lt;/code&gt;文件支持直接以&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+!unix {
+    SOURCES += comm.cpp
+}
+win32:debug {
+    TARGET = client_debug.exe
+}
+win32 | macx {
+    HEADERS += debug.h
+}
+linux-g++ {
+    CONFIGS += c++11
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;的方式来定义跨平台代码。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

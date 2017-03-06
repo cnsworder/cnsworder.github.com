@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title> vim 与 emacs 脚本编程对比 - CSROSS</title>
+	<meta name="author" content="map[email:cnsworder@gmail.com homepage:http://www.cpio.date name:cnsworder]">
+
+	
+	
+	<meta name="description" content="">
+	
+
+	
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<link href='/index.xml' rel="alternate" title="CSROSS" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://www.cpio.date/post/vimvsemacs/">
+	<link href="http://www.cpio.date//favicon.png" rel="shortcut icon">
+	<link href="http://www.cpio.date//css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="http://www.cpio.date//css/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/gruvbox-dark.min.css">
+    <script src="http://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	
+	<script src="http://www.cpio.date//js/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5('cnsworder@gmail.com') + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="http://about.me/cnsworder">About</a></li>
+    <li><a href="/post/">Archives</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    专注于基于Linux的嵌入式智能设备和云的开发
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href='mailto:cnsworder@gmail.com' title="Email">Email</a>
+		
+		
+			<a class="facebook" href='http://www.facebook.com/cnsworder' title="Facebook">Facebook</a>
+		
+		
+		
+			<a class="twitter" href='http://twitter.com/cnsworder' title="Twitter">Twitter</a>
+		
+		
+			<a class="github" href='https://github.com/cnsworder' title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+			<a class="douban" href='https://www.douban.com/people/cnsworder' title="Douban">Douban</a>
+		
+		
+		
+    	
+    	
+			<a class="rss" href='/index.xml' title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>
+			</div>
+		</div>
+		<div class="mid-col">
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+					<div itemscope itemtype="http://schema.org/Blog">
+					<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <h1 class="title" itemprop="name"> vim 与 emacs 脚本编程对比</h1>
+	<div class="entry-content" itemprop="articleBody"><ol>
+<li><p>定义变量
+vim</p>
+
+<pre><code>let a = 123
+</code></pre>
+
+<p>emacs</p>
+
+<pre><code>     (setq a 123)
+</code></pre></li>
+
+<li><p>定义函数
+vim：</p>
+
+<pre><code>function Fun() &quot;如果不使用作用域限制，首字母需要大写
+endfunction
+</code></pre>
+
+<p>命令行调用 <code>：command! -nargs=1 Gdb :!命令 &quot;&lt;args&gt;&quot;</code>
+emacs:</p>
+
+<pre><code>(defun fun ()
+&quot;message&quot;
+(interactive)
+ .....
+)
+</code></pre></li>
+
+<li><p>执行函数
+vim:</p>
+
+<pre><code>call function()
+</code></pre>
+
+<p>emacs:</p>
+
+<pre><code>(fun )
+</code></pre></li>
+
+<li><p>条件语句
+vim:</p>
+
+<pre><code>if c
+elseif b
+else e
+endif
+while a
+endwhile
+</code></pre>
+
+<p>emacs:</p>
+
+<pre><code>(if a
+ 'thenfun
+ 'elsefun)
+(while (equal a b)
+body...
+(计数器))
+(cond 
+(first ...)
+(second ...))
+</code></pre></li>
+
+<li><p>自动执行
+vim:</p>
+
+<pre><code>autocmd BuffRead *.cpp :call fun
+</code></pre>
+
+<p>emacs:</p>
+
+<pre><code>(add-hook 'c++-mode-hook '(lambda ()
+                                                (interactive)
+                                                 .....))
+</code></pre></li>
+
+<li><p>引用其他文件
+vim:</p>
+
+<pre><code>source name.vim
+. name.vim
+</code></pre>
+
+<p>emacs:</p>
+
+<pre><code>(require 'name)  ;;需要在文件末尾添加(provied 'name)
+(load &quot;name.el&quot;)
+</code></pre></li>
+
+<li><p>绑定快捷键
+vim:</p>
+
+<pre><code>nmap &lt;silent&gt; &lt;F8&gt; :call fun()&lt;CR&gt;
+imap &lt;F9&gt; :call fun()&lt;CR&gt;
+vmap &lt;F10&gt; :call fun()&lt;CR&gt;
+inoremap ( ()&lt;Esc&gt;i //输入(变()
+&lt;A&gt;/&lt;M&gt;Alt
+&lt;C&gt;Ctrl
+&lt;S&gt;Shift
+&lt;D&gt;Command
+&lt;Esc&gt;Esc
+&lt;CR&gt;回车
+&lt;Fn&gt;F1-F12
+其他查看 help keycodes
+inoremap 避免递归
+&lt;silent&gt;确保不回传命令
+</code></pre>
+
+<p>emacs:</p>
+
+<pre><code>(global-set-key [f8] 'fun)
+(define-key c++-mode-map (kbd &quot;C-\ b l&quot;) 'fun)
+kbd函数实现绑定多个组合快捷键
+-来连接同时按下的快捷键
+&lt;f10&gt;特殊按键
+</code></pre></li>
+</ol>
+</div></article>
+					
+						<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_button_google_plusone" g:plusone:size=''></a>
+	
+	
+	</div>
+	
+  	<script type="text/javascript" src='http://s7.addthis.com/js/250/addthis_widget.js#pubid='></script>
+  	
+</div>
+
+					
+					
+					
+
+
+				    </div>
+				</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2017
+
+    cnsworder
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<script src="http://www.cpio.date//js/slash.js"></script>
+<script src="http://www.cpio.date//js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script></footer>
+		</div>
+	</div>
+	
+</body>
+</html>

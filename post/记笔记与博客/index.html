@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>记笔记与博客 - CSROSS</title>
+	<meta name="author" content="map[email:cnsworder@gmail.com homepage:http://www.cpio.date name:cnsworder]">
+
+	
+	
+	<meta name="description" content="">
+	
+
+	
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<link href='/index.xml' rel="alternate" title="CSROSS" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://www.cpio.date/post/%E8%AE%B0%E7%AC%94%E8%AE%B0%E4%B8%8E%E5%8D%9A%E5%AE%A2/">
+	<link href="http://www.cpio.date//favicon.png" rel="shortcut icon">
+	<link href="http://www.cpio.date//css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="http://www.cpio.date//css/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/gruvbox-dark.min.css">
+    <script src="http://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	
+	<script src="http://www.cpio.date//js/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5('cnsworder@gmail.com') + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="http://about.me/cnsworder">About</a></li>
+    <li><a href="/post/">Archives</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    专注于基于Linux的嵌入式智能设备和云的开发
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href='mailto:cnsworder@gmail.com' title="Email">Email</a>
+		
+		
+			<a class="facebook" href='http://www.facebook.com/cnsworder' title="Facebook">Facebook</a>
+		
+		
+		
+			<a class="twitter" href='http://twitter.com/cnsworder' title="Twitter">Twitter</a>
+		
+		
+			<a class="github" href='https://github.com/cnsworder' title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+			<a class="douban" href='https://www.douban.com/people/cnsworder' title="Douban">Douban</a>
+		
+		
+		
+    	
+    	
+			<a class="rss" href='/index.xml' title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>
+			</div>
+		</div>
+		<div class="mid-col">
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+					<div itemscope itemtype="http://schema.org/Blog">
+					<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <h1 class="title" itemprop="name">记笔记与博客</h1>
+	<div class="entry-content" itemprop="articleBody"><p>最近很少更新博客了，是因为最近迷恋上了用markdown来写文章和记笔记。最近系统的学习了一下markdown和reStructuredText两种markup语言，感觉markdown确实很适合来做笔记和写一些文字性的东西（比如：博客），很多的地方oschina，SegmentFault，知乎等都支持markdown语法来写文章或者讨论留言，并且还有专门提倡用markdown来分享文章的简书这样的网站，但是很遗憾的是CSDN却不支持。OSChina的markdown编辑器的也不咋地。</p>
+
+<p>说一下自己的使用使用体验吧。</p>
+
+<p>程序猿写文章自然少不了代码了，他们都能够直接将代码块格式化并高亮显示，秒杀所有的富文本编辑器自带的代码插入功能，看效果</p>
+
+<p>Python:</p>
+
+<pre><code class="language-python">import osclass Mark(Object):
+  def __init__(self):
+         super.__init__(self);
+</code></pre>
+
+<p>go:</p>
+
+<pre><code>package mainimport (  &quot;fmt&quot;)func main(){
+   fmt.Println(&quot;Mark&quot;)
+}
+</code></pre>
+
+<p>C:</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+int main(int arg, char **argv){
+  return 0; 
+}
+</code></pre>
+
+<ul>
+<li>偶尔插入个图片也是非常简单图片</li>
+<li>使用马克飞象来写evernote笔记，不再为如何记笔记而烦恼，直接将知识点记录成列表就好了</li>
+<li>使用Markdown Here的chrome和firefox插件直接格式化输入的文本框可以将markdown语法的内容直接格式化，这样还好吧，只是没有了预览功能，但是集中精力码字的情况下预览的意义不大了。用来格式化邮件和不支持markdown语法的blog是不错的选择</li>
+<li>没有复杂的语法，但是自动列表的自动完成功能确实在某些工具帮助下确实提升效率，比如用sublimeText，vim，emacs的相关相关插件。</li>
+<li>用reStructuredText写文档性质的东西是很合适的，没有wiki语法那么繁琐，比markdown支持更多的语法，并且有大量的python工具集支持，生成html，man，pdf易如反掌，并且很流行生成s5的幻灯片</li>
+<li>使用sphinx生成项目并托管到github上，使用readthedoc自动在线生成和发布文档，让整个文档工作变得那样的清爽</li>
+<li>markdown支持插入html语言来扩展自己，特别是表格</li>
+<li>reStructuredText的命令可以直接 自定义role来添加class，例如添加下划线</li>
+</ul>
+
+<pre><code>.. role:: strike
+  :class: strike
+:strike:`This text is crossed out`
+.strike {
+text-decoration: line-through;
+}
+</code></pre>
+
+<p>记录知识与分享知识不应该太过于繁琐，而应该在自由的表述自己的意图</p>
+</div></article>
+					
+						<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_button_google_plusone" g:plusone:size=''></a>
+	
+	
+	</div>
+	
+  	<script type="text/javascript" src='http://s7.addthis.com/js/250/addthis_widget.js#pubid='></script>
+  	
+</div>
+
+					
+					
+					
+
+
+				    </div>
+				</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2017
+
+    cnsworder
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<script src="http://www.cpio.date//js/slash.js"></script>
+<script src="http://www.cpio.date//js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script></footer>
+		</div>
+	</div>
+	
+</body>
+</html>

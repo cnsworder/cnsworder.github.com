@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+
+<html lang="zh-cn">
+
+<head>
+	<meta name="generator" content="Hugo 0.20-DEV" />
+	<meta charset="utf-8">
+	<title>CSROSS</title>
+	<meta name="author" content="map[email:cnsworder@gmail.com homepage:http://www.cpio.date name:cnsworder]">
+
+	
+	
+	<meta name="description" content="">
+	
+
+	
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<link href='/index.xml' rel="alternate" title="CSROSS" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://www.cpio.date/">
+	<link href="http://www.cpio.date//favicon.png" rel="shortcut icon">
+	<link href="http://www.cpio.date//css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="http://www.cpio.date//css/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/gruvbox-dark.min.css">
+    <script src="http://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	
+	<script src="http://www.cpio.date//js/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5('cnsworder@gmail.com') + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="http://about.me/cnsworder">About</a></li>
+    <li><a href="/post/">Archives</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    专注于基于Linux的嵌入式智能设备和云的开发
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href='mailto:cnsworder@gmail.com' title="Email">Email</a>
+		
+		
+			<a class="facebook" href='http://www.facebook.com/cnsworder' title="Facebook">Facebook</a>
+		
+		
+		
+			<a class="twitter" href='http://twitter.com/cnsworder' title="Twitter">Twitter</a>
+		
+		
+			<a class="github" href='https://github.com/cnsworder' title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+			<a class="douban" href='https://www.douban.com/people/cnsworder' title="Douban">Douban</a>
+		
+		
+		
+    	
+    	
+			<a class="rss" href='/index.xml' title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>
+			</div>
+		</div>
+		<div class="mid-col">
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+					
+					<div itemscope itemtype="http://schema.org/Blog">
+					
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Mon, Mar 6, 2017' data-updated="true" itemprop="datePublished">Mon, Mar 6, 2017</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/%E8%BF%90%E7%BB%B4"> 运维 </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/ambari%E7%AB%AF%E5%8F%A3%E4%BF%AE%E6%94%B9/" itemprop="url">ambari端口修改</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		Ambari 使用 8080 端口提供服务，这个端口很多情况下会被 tomcat 等其他应用所占用。修改的方法如下：
+修改配置文件 /etc/ambari-server/conf/ambari.properties
+client.api.port=&lt;port_number&gt;  默认情况下配置文件中没有这个选项，添加上就可以。
+		
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Wed, Feb 8, 2017' data-updated="true" itemprop="datePublished">Wed, Feb 8, 2017</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/%E5%BC%80%E5%8F%91"> 开发 </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/kubernetes%E5%AE%89%E8%A3%85%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/" itemprop="url">kubernetes安装简明教程</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		kubernetes通过 kubeadm 方式安装需要以下四个包   kubelet kubernetes-cni kubeadm kubectl  这四个包可以通过 https://github.com/kubernetes/kubernetes 仓库下载后执行 make 获取安装包，如果需要rpm包需要下载 release 版本。
+ 安装 kubernetes 环境
+ 安装管理节点
+ kubeadmin init &ndash;api-advertise-addresses [管理节点IP]
+ 这一步会生成一个token在工作节点加入的时候用。
+kubernetes所有组件以 POD 运行在kubernetes中，下面这些镜像是在安装过程中在安装的需要提前准备好，具体版本号会根据kubernetes版本不同而不同，注意匹配，否则可能会有安装失败。
+ # 所有节点都会安装 gcr.io/google_containers/pause-amd64 gcr.io/google_containers/kube-proxy-amd64 # 管理节点安装 gcr.io/google_containers/etcd-amd64 gcr.io/google_containers/kube-apiserver-amd64 gcr.io/google_containers/kube-scheduler-amd64 gcr.io/google_containers/kube-discovery-amd64 gcr.io/google_containers/kube-controller-manager-amd64 gcr.io/google_containers/exechealthz-amd64 # 网络插件， 所有节点都会安装 weaveworks/weave-kube weaveworks/weave-npc # dns 插件，管理节点安装 gcr.io/google_containers/kubedns-amd64 gcr.io/google_containers/kube-dnsmasq-amd64 gcr.io/google_containers/dnsmasq-metrics-amd64 # web界面，管理节点安装 gcr.io/google_containers/kubernetes-dashboard-amd64  启动 kubelet 服务
+ systemctl start kubelet
+ 安装工作节点
+		<a href="http://www.cpio.date/post/kubernetes%E5%AE%89%E8%A3%85%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/" class="more-link">Read on →</a>
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Sun, Feb 5, 2017' data-updated="true" itemprop="datePublished">Sun, Feb 5, 2017</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/%E5%BC%80%E5%8F%91"> 开发 </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/sh%E7%9A%84%E6%8C%89%E9%94%AE%E7%BB%91%E5%AE%9A/" itemprop="url">sh的按键绑定</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		zsh my-script() { echo &quot;test&quot; } zle -N my-script bindkey '^j' my-script  或者
+bindkey -s '\eb' 'script.sh'  bash bind '\ee':&quot;\C-asudo\C-e&quot;  alt就是bash的&rsquo;meta&rsquo;key， 所以 \e 表示 alt
+显示的 ^[ 转义或元键的意思，再加上 &lsquo;e&rsquo;就是 ^[e
+\C 就是 ctrl;
+通过 read 命令可以获取输入的按键表示方法；
+		
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Sat, Jan 21, 2017' data-updated="true" itemprop="datePublished">Sat, Jan 21, 2017</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/%E7%AE%A1%E7%90%86"> 管理 </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/" itemprop="url">个人知识管理</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		 这个话题大家都有自己的想法和做法，我不想布道，在这里把自己的知识管理发展过程和现在的知识管理方法和大家分享一下，同时也请大家能给出更好的思路和方法。
+最初个人的知识记录在本子上（主要还是学生的时代），这个过程大家都有过，现在能够翻出来看别有一番滋味，但是大部分也已经无从找到，从知识保存的角度来说就是都没了。当然有很多通过手工的记录都已经记录到自己的脑子里了。
+后来开始经常在电脑前了，将自己的学习的资料保存起来，很多的pdf（惭愧的是都是盗版）被分类放到文件夹里。发现这样的后果是只收集了文档却忘记了看，渐渐的开始用word来记一些笔记，这些笔记内容翻看起来是很好的的学习成长的记录，但当时的时代没有云存储服务，所以保存在电脑和移动硬盘随着时间的推移也已经找不到了。
+然后开始有了博客，开始记录和摘抄一些东西，其实博客很重要的是分享原创，用来做笔记真的不合适。07年左右开始在csdn 上安家，但是感觉自己的太水了写，写出东西来让人笑话，要么就是转贴一些东西意义不大，中间有一年左右的时间没有写任何的内容。
+evernote 在接写来的很长一段时间成为了我摘录笔记的良好平台，我可以将自己的学习知识记录在上面，权当私藏。evernote的web剪辑功能确实不错可以快速的将别人的文章中自己需要的部分选取保存起来。但是时间长了感觉有些缺憾，记录起笔记来感觉不爽，evernote实际上不太适合程序员使用，代码的支持不好。后来学习了markdown语法借助马克飞象这个工具来用markdown语法来写笔记。笔记还算是圆满了。让后对markdown就像着迷一样，它用来做程序员的比较工具太爽了，找csdn上支持markdown的方法，并且在找支持markdown的替换的blog。借助markdownhere可以将自己输入的文档直接转成相应的富文本，但是修改起来很麻烦。其实马克飞象也存在这个问题，没有办法修改已经发布的文章。wri.pe借助dropbox保存markdown源码同时将编译后的富文本发布到evernote上解决了这个问题。至此笔记的问题解决了。
+blog的对markdown或者restructuredtext支持的问题，一直是个遗憾，csdn压根就不支持markdown， oschina 的markdown编辑器可用性太差了，简书这样的网站对markdown支持倒是不错，但不是程序员的社区。segmentfault的markdown编辑器还算不错。（一会儿写完，看看是否还能修改～～～，OK，可以很好的修改）。
+很多人推荐用wiki来组织管理知识，个人感觉需要搭建相应的服务，并且还需要学习比markdown和restructuredtext更复杂的wiki format语法。个人没有采用这种做法，组织化的文档知识还是用restructuredtext放到gihub上用readthedocs自动管理吧。
+最终的解决方法： 笔记 wri.pe + evernote
+分享  组织化文档 github + readthedocs + restructuredtext + sphinx
+ 文章 blog + penlican
+ 代码片 gist
+ 手册 zeal + man
+  程序员知识范围和组织形式不同很可能采用的方法产生的效果有所不同。 做前端的希望很快的看到自己代码的效果和展示形式自然会用一些能够可见的工具来管理。都有很多更好的工具来辅助，但是我这样的只写代码的猿就没有必要了。
+ 另外大家有Linux平台下代码片管理工具可以推荐给我。
+ 
+		
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Wed, Jan 18, 2017' data-updated="true" itemprop="datePublished">Wed, Jan 18, 2017</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/vim"> vim </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/vimlist/" itemprop="url">vim 插件列表</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		仓库地址
+基础    插件 用途     gmarik/vundle, L9 包管理   The-NERD-tree 目录树   mhinz/vim-startify 首页   ryanoasis/vim-devicons 文件图标   ctrlpvim/ctrlp.vim, dyng/ctrlsf.vim 快速搜索   bling/vim-airline 状态栏美化   zenorocha/dracula-theme&rsquo;,{&lsquo;rtp&rsquo;:&lsquo;vim/&rsquo;} 配色   terryma/vim-multiple-cursors.git 多光标   rking/ag.vim， dkprice/vim-easygrep&rsquo; 搜索   Lokaltog/vim-easymotion 搜索定位   Plugin &lsquo;TaskList.vim 任务列表   mbbill/undotree 撤销修改   Yggdroot/indentLine 缩进提示   kien/rainbow_parentheses.vim 括号高亮   jiangmiao/auto-pairs，surround.
+		<a href="http://www.cpio.date/post/vimlist/" class="more-link">Read on →</a>
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Wed, Jan 18, 2017' data-updated="true" itemprop="datePublished">Wed, Jan 18, 2017</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+		<a href="http://www.cpio.date//categories/cpp"> CPP </a>,
+	
+
+	
+	
+	    <a href="http://www.cpio.date//categories/golang"> Golang </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/maclist/" itemprop="url">Mac 应用列表</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		 mac store    应用 用途     alfred 快捷指令   Commander One， ForkLift 文件浏览器   Manico 应用快捷键启动和切换   bartender 状态栏标签隐藏   airmail 邮箱   Unclutter 下拉快捷笔记和文件中转   chrome，safari 浏览器   Browser Ninja 默认浏览器选择   DeskConnect 多终端发送   Irvue 桌面背景   Leaf 订阅   MacID 手机解锁Mac   欧陆词典／有道翻译 翻译   奇妙清单 清单   dash 代码文档   Marboo 多文件格式浏览   Noizio 白噪音   Quiver， MWeb markdown   Notability 多端笔记   Paste 剪切板管理   PopClip 选择快捷操作   Pocket 文档收集   SnappyApp 截图   The Unarchiver 解压缩   TinyCal 日历   Typeeto mac输入到手机   U图床 图床上传   xLine 脑图   QQ, 微信 聊天   网易云音乐 音乐    独立下载    应用 用途     appcleaner 应用卸载   iTerm 终端   Jump Desktop 远程桌面   iStat Menus 系统状态   Synergy 多机共享鼠标键盘   ShadowsocksX 科学上网   Spectacle 窗口管理   SourceTree 代码版本管理   yEd 流程图   steam 游戏   QBlocker 屏蔽cmd+Q    brew cask    应用 用途     DB Browser for SQLite sqlite   emacs-mac，macvim 编辑器   cakebrew homebrew GUI   keycastr 按键显示    
+		
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Tue, Jan 17, 2017' data-updated="true" itemprop="datePublished">Tue, Jan 17, 2017</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+		<a href="http://www.cpio.date//categories/development"> Development </a>,
+	
+
+	
+	
+	    <a href="http://www.cpio.date//categories/emacs"> emacs </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/my/" itemprop="url">emacs cask</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		emacs cask 是 emacs 的一个包管理工具，他的描述文件是 Cask . 他主要的开发语言是 python 。
+我的emacs配置地址: https://github.com/cnsworder/crossemacs
+安装 安装方法有三种，分别是：
+直接下载安装脚本 $ curl -fsSkL https://raw.github.com/cask/cask/master/go | python  github clone安装 $ git clone https://github.com/cask/cask.git ~/.cask  Mac OS 上 homebrew 管理器安装 $ brew install cask  如果 cask 不在你的命令路径下，需要添加到 PATH 中。
+$ export PATH=&quot;/path/to/code/cask/bin:$PATH&quot;  升级 cask $ cask upgrade-cask  使用 初始化 在cask使用前需要一个 Cask 文件来描述emacs使用的包，这个文件可以用下面的指令来生成：
+$ cask init [--dev]  emacs 在使用了 cask 后会从 ~/.
+		<a href="http://www.cpio.date/my/" class="more-link">Read on →</a>
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Fri, Jun 24, 2016' data-updated="true" itemprop="datePublished">Fri, Jun 24, 2016</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/%E7%8E%AF%E5%A2%83"> 环境 </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/openstack%E8%BF%9E%E6%8E%A5ceph%E4%B8%8D%E6%88%90%E5%8A%9F/" itemprop="url">openstack连接ceph不成功</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		现象 openstack集成ceph过程中出现rbd和rados连接ceph成功，但是openstack连接不成功。
+原因 我配置的ceph使用了admin用户进行连接ceph没有建立用户，可能是权限限制。
+解决方法 给ceph新建授权用户就可以
+ceph get-or-create client.glance mon 'allow *' osd 'allow *' mds 'allow *' -o ceph.client.glance.keyring ceph get-or-create client.cinder mon 'allow *' osd 'allow *' mds 'allow *' -o ceph.client.cinder.keyring ceph get-or-create client.nova mon 'allow *' osd 'allow *' mds 'allow *' -o ceph.client.nova.keyring  另外需要注意的是修改nova的计算节点：
+cat &gt; secret.xml &lt;&lt;EOF &lt;secret ephemeral='no' private='no'&gt; &lt;uuid&gt;457eb676-33da-42ec-9a8c-9293d545c337&lt;/uuid&gt; &lt;!-- uuidgen生成，这行可以没有后面加入 --&gt; &lt;usage type='ceph'&gt; &lt;name&gt;client.cinder secret&lt;/name&gt; &lt;/usage&gt; &lt;/secret&gt; EOF virsh secret-define --file secret.
+		<a href="http://www.cpio.date/post/openstack%E8%BF%9E%E6%8E%A5ceph%E4%B8%8D%E6%88%90%E5%8A%9F/" class="more-link">Read on →</a>
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Fri, Mar 13, 2015' data-updated="true" itemprop="datePublished">Fri, Mar 13, 2015</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/golang"> Golang </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/gointerface/" itemprop="url">探究golang接口</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		今天看了《Go 语言中的方法，接口和嵌入类型》所以想对比以前对C/C++相关知识进一步理解golang的接口、指针、参数传递。
+接口 根据《Go 语言中的方法，接口和嵌入类型》的描述可以看出，接口去调用结构体的方法时需要针对接受者的不同去区分，即：
+ 接收者是指针*T时，接口实例必须是指针 接收者是值 T时，接口实力可以是指针也可以是值 接口的定义和类型转换与接收者的定义是关联的  文章中的示例是通过接口作为函数参数的方式展现的，这里我直接使用变量来进行实验：
+package main import &quot;fmt&quot; type Type struct { name string } type PType struct { name string } type Inter iInterface { post() } // 接收者非指针 func (t Type) post() { fmt.Println(&quot;POST&quot;) } // 接收者是指针 func (t *PType) post() { fmt.Println(&quot;POST&quot;) } func main() { var it Inter //var it *Inter //接口不能定义为指针 pty := new(Type) ty := {&quot;type&quot;} it = ty // 将变量赋值给接口，OK it.
+		<a href="http://www.cpio.date/post/gointerface/" class="more-link">Read on →</a>
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Tue, Jan 20, 2015' data-updated="true" itemprop="datePublished">Tue, Jan 20, 2015</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/%E7%8E%AF%E5%A2%83"> 环境 </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/emacs%E4%BD%BF%E7%94%A8elpa%E5%8D%87%E7%BA%A7%E6%8F%92%E4%BB%B6/" itemprop="url">emacs使用elpa升级插件</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		emacs 24以后自动支持了elpa包管理功能,直接 package-list-packages 列出插件来,然后 Ctrl-s 搜索插件,选择安装就可以.这样很是方便,本来以为这样就可以了,但是随着时间推移,插件列表中出现了大量的插件版本,并且有很多 obsolete 标识的插件.所以想到了我需要elpa来更新插件和删除插件.
+更新管理插件需要进入package-list中进行操作:
+ package-list-packages 进入列表 package-menu-mark-upgrade [U] 设置更新标识 package-menu-execute [x]执行更新操作  完成更新操作.
+emacs 24 以前的版本需要安装elpa package插件来实现以上功能.
+参考文档: How to Install Packages Using ELPA, MELPA, Marmalade
+ELPA (中文)
+		
+	</div>
+</article>
+
+				    
+				    </div>
+				    <nav id="pagenavi">
+					    
+					    
+					        <a href="/page/2/" class="next">Next</a>
+					    
+					    <div class="center"><a href="http://www.cpio.date//post/">Blog Archives</a></div>
+					</nav>
+				</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2017
+
+    cnsworder
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<script src="http://www.cpio.date//js/slash.js"></script>
+<script src="http://www.cpio.date//js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script></footer>
+		</div>
+	</div>
+	
+
+
+	
+</body>
+</html>

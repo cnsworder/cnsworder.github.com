@@ -1,0 +1,394 @@
+<!DOCTYPE HTML>
+
+<html lang="zh-cn">
+
+<head>
+	<meta name="generator" content="Hugo 0.20-DEV" />
+	<meta charset="utf-8">
+	<title>CSROSS</title>
+	<meta name="author" content="map[email:cnsworder@gmail.com homepage:http://www.cpio.date name:cnsworder]">
+
+	
+	
+	<meta name="description" content="">
+	
+
+	
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<link href='/index.xml' rel="alternate" title="CSROSS" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://www.cpio.date/">
+	<link href="http://www.cpio.date//favicon.png" rel="shortcut icon">
+	<link href="http://www.cpio.date//css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="http://www.cpio.date//css/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/gruvbox-dark.min.css">
+    <script src="http://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	
+	<script src="http://www.cpio.date//js/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5('cnsworder@gmail.com') + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="http://about.me/cnsworder">About</a></li>
+    <li><a href="/post/">Archives</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    专注于基于Linux的嵌入式智能设备和云的开发
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href='mailto:cnsworder@gmail.com' title="Email">Email</a>
+		
+		
+			<a class="facebook" href='http://www.facebook.com/cnsworder' title="Facebook">Facebook</a>
+		
+		
+		
+			<a class="twitter" href='http://twitter.com/cnsworder' title="Twitter">Twitter</a>
+		
+		
+			<a class="github" href='https://github.com/cnsworder' title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+			<a class="douban" href='https://www.douban.com/people/cnsworder' title="Douban">Douban</a>
+		
+		
+		
+    	
+    	
+			<a class="rss" href='/index.xml' title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>
+			</div>
+		</div>
+		<div class="mid-col">
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+					
+					<div itemscope itemtype="http://schema.org/Blog">
+					
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Tue, Jan 6, 2015' data-updated="true" itemprop="datePublished">Tue, Jan 6, 2015</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/%E5%BC%80%E5%8F%91"> 开发 </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/whiptail%E4%BD%BF%E7%94%A8/" itemprop="url">whiptail使用</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		whiptail 是替代 dialog 的实现,它基于 newt 库.而 newt 则是为了简化 ncurses 开发而产生的新的 tty 下的UI库.
+所以说一切都是新的.
+whiptail与dialog比较 从使用角度来看 whiptail 和 dialog 几乎是相同的.
+先看一个messgebox的代码:
+#whiptail whiptail --title &quot;Message Box&quot; --msgbox &quot;Message Info&quot; 0 0  # dialog dialog --msgbox &quot;Message Info&quot; 0 0  风格上稍有差异外总体还是一致的.
+现在默认情况下主要的发行版本(fedora, ubuntu, archlinux确认)默认提供的是 whiptail 和 newt ,而 dialog 和 ncurses 需要手动安装.
+whiptail使用技巧 这些技巧大部分在使用 dialog 时也是适用的.
+获取返回值 yesno 是否的选择根据返回值来获取用户选择
+whiptail --yesno &quot;choose yes or no&quot; 0 0 value=$?  menu checklist 等 菜单的选择返回标准输出字符串
+		<a href="http://www.cpio.date/post/whiptail%E4%BD%BF%E7%94%A8/" class="more-link">Read on →</a>
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Fri, May 9, 2014' data-updated="true" itemprop="datePublished">Fri, May 9, 2014</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+		<a href="http://www.cpio.date//categories/linux"> linux </a>,
+	
+
+	
+	
+	    <a href="http://www.cpio.date//categories/make"> make </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/crossmake/" itemprop="url">编译系统对跨平台代码的支持</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		问题 起因  项目需要跑在不同的平台上 不希望代码中掺杂大量的define宏做平台判断（有洁癖呀～～～） 定义一些通用宏来处理只能解决一些类型差异的问题  处理  将跨平台代码写入不同的文件夹下 os/linux 和 os/win 在外部暴露的.h文件加入判断宏  //file: public.h #ifdef WIN32 # include &quot;os/windows/public.h&quot; #else # include &quot;os/linux/public.h&quot; #endif //WIN32   其他代码直接使用#include &quot;public.h&quot;  产生问题 使用的编译构建系统如何来识别这些编译哪个目录下的文件,在链接的时候如何选择库
+不同的编译系统下的解决 直接Makefile 通过宏来区分
+ifdef WIN32 SOURCES += $(wildcard os/win/*.cpp) else SOURCES += $(wildcard os/linux/*.cpp) endif  cmake cmake通过逻辑语句和预定义变量来判定
+if(WIN32) aux_source_directory(os/win SOURCES) else(APPLE) aux_source_directory(os/mac SOURCES) else(UNIX) aux_source_directory(os/linux SOURCES) endif(WIN)  qmake qt的.pro文件支持直接以
+ !unix { SOURCES += comm.
+		<a href="http://www.cpio.date/post/crossmake/" class="more-link">Read on →</a>
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Fri, Feb 21, 2014' data-updated="true" itemprop="datePublished">Fri, Feb 21, 2014</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/%E5%BC%80%E5%8F%91"> 开发 </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/clang_static_analyze/" itemprop="url">clang static analyze</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		C++静态检查一般使用cppcheck直接一条cppcheck ./*.{h,cpp,hpp}命令搞定整个项目，最近发现用clang进行代码补全和代码分析更加强大，借助scan-build工具更好的完成整个过程
+ 直接使用clang扫描
+ --analyze选项可以直接静态扫描源码
+ --analyzer-check设置检查的内容 -analyzer-checker-help可以列出可以检测的内容 -c将会只运行预处理、编译和汇编的步骤  首先使用scan-build扫描一下构建
+  使用格式为:scan-build [scan-build options] &lt;command&gt; [command options] 我们可以这样使用它:
+scan-build ./configure scan-build make  or
+scan-build xcodebuild  or
+scan-build gcc  生成检查文件
+*scan-build*几个有用的选项如下：
+ &ndash;use-analyzer: 设置检查的工具来替换默认的clang
+-o : 生成检查报告的目录，默认/tmp下
+-v : 详细输出结果
+-V : 直接在浏览器中查看结果
+  查看检查结果  scan-veiw /file生成查看文件
+		
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Tue, Jan 21, 2014' data-updated="true" itemprop="datePublished">Tue, Jan 21, 2014</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/%E7%8E%AF%E5%A2%83"> 环境 </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/%E6%88%91%E7%9A%84vim%E5%92%8Cemacs%E7%9A%84%E9%85%8D%E7%BD%AE/" itemprop="url">我的vim和emacs的配置</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		vimrc：
+colorscheme ron set guifont=文泉驿等宽正黑\ Bold\ 12 syntax on set nobackup set tabstop=4 set softtabstop=4 set shiftwidth=4 set expandtab set autoindent set number set laststatus=2 source $VIMRUNTIME/ftplugin/man.vim command! -nargs=1 Gdb :!gdb &quot;/home/cnsworder/work/test&lt;args&gt;&quot; nmap &lt;F8&gt; :WMToggle&lt;cr&gt; nmap &lt;F5&gt; :make&lt;cr&gt;nmap &lt;F6&gt; :make clean&lt;cr&gt; nmap &lt;F9&gt; :Gdb test&lt;cr&gt; set rtp+=~/.vim/bundle/vundle/ call vundle#rc() Bundle 'gmarik/vundle' Bundle 'L9' Bundle 'FuzzyFinder' Bundle 'The-NERD-tree' Bundle 'Tagbar' &quot;Bundle 'vim-powerline' &quot;Bundle 'OmniCppComplete' Bundle 'scrooloose/syntastic' Bundle 'clang-complete' Bundle 'nathanaelkane/vim-indent-guides' Bundle 'vim-airline' Bundle 'ctrlp.
+		<a href="http://www.cpio.date/post/%E6%88%91%E7%9A%84vim%E5%92%8Cemacs%E7%9A%84%E9%85%8D%E7%BD%AE/" class="more-link">Read on →</a>
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Mon, Jan 21, 2013' data-updated="true" itemprop="datePublished">Mon, Jan 21, 2013</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/%E5%BC%80%E5%8F%91"> 开发 </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/cmake%E7%AE%A1%E7%90%86visual_studio%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%A4%B4%E6%96%87%E4%BB%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" itemprop="url">cmake管理visual studio无法显示头文件解决方法</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		 原因 我们的跨平台项目使用cmake来管理的，但是windows下的小伙伴发现在 visual studio上头文件没有加载进来，于是手工加载，事情过去了。然后，有一天我修改了CMakeLists.txt文件，visual studio居然自动去重新生成了项目，然后头文件就没有了。哭吧～～～～
+解决方法 source_group　可以将文件分目录来显示在IDE中。 所以，修改了一下 base.cmake 文件让所有的项目都能检索出头文件并显示在　include 文件夹中。
+file(GLOB_RECURSE CURRENT_HEADERS *.h *.hpp)source_group(&quot;Include&quot; FILES ${CURRENT_HEADERS}) add_executable(${MODULE_NAME} ${SOURCES} ${CURRENT_HEADERS})  重新生成windows项目，头文件自动出现了，win下的小伙伴们幸福了。
+ vim、emacs党徒直接无视～～～
+ 
+		
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Mon, Jan 21, 2013' data-updated="true" itemprop="datePublished">Mon, Jan 21, 2013</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+	    <a href="http://www.cpio.date//categories/%E7%AE%A1%E7%90%86"> 管理 </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/%E8%AE%B0%E7%AC%94%E8%AE%B0%E4%B8%8E%E5%8D%9A%E5%AE%A2/" itemprop="url">记笔记与博客</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		最近很少更新博客了，是因为最近迷恋上了用markdown来写文章和记笔记。最近系统的学习了一下markdown和reStructuredText两种markup语言，感觉markdown确实很适合来做笔记和写一些文字性的东西（比如：博客），很多的地方oschina，SegmentFault，知乎等都支持markdown语法来写文章或者讨论留言，并且还有专门提倡用markdown来分享文章的简书这样的网站，但是很遗憾的是CSDN却不支持。OSChina的markdown编辑器的也不咋地。
+说一下自己的使用使用体验吧。
+程序猿写文章自然少不了代码了，他们都能够直接将代码块格式化并高亮显示，秒杀所有的富文本编辑器自带的代码插入功能，看效果
+Python:
+import osclass Mark(Object): def __init__(self): super.__init__(self);  go:
+package mainimport ( &quot;fmt&quot;)func main(){ fmt.Println(&quot;Mark&quot;) }  C:
+#include &lt;stdio.h&gt; int main(int arg, char **argv){ return 0; }   偶尔插入个图片也是非常简单图片 使用马克飞象来写evernote笔记，不再为如何记笔记而烦恼，直接将知识点记录成列表就好了 使用Markdown Here的chrome和firefox插件直接格式化输入的文本框可以将markdown语法的内容直接格式化，这样还好吧，只是没有了预览功能，但是集中精力码字的情况下预览的意义不大了。用来格式化邮件和不支持markdown语法的blog是不错的选择 没有复杂的语法，但是自动列表的自动完成功能确实在某些工具帮助下确实提升效率，比如用sublimeText，vim，emacs的相关相关插件。 用reStructuredText写文档性质的东西是很合适的，没有wiki语法那么繁琐，比markdown支持更多的语法，并且有大量的python工具集支持，生成html，man，pdf易如反掌，并且很流行生成s5的幻灯片 使用sphinx生成项目并托管到github上，使用readthedoc自动在线生成和发布文档，让整个文档工作变得那样的清爽 markdown支持插入html语言来扩展自己，特别是表格 reStructuredText的命令可以直接 自定义role来添加class，例如添加下划线  .. role:: strike :class: strike :strike:`This text is crossed out` .strike { text-decoration: line-through; }  记录知识与分享知识不应该太过于繁琐，而应该在自由的表述自己的意图
+		
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Tue, Sep 4, 2012' data-updated="true" itemprop="datePublished">Tue, Sep 4, 2012</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+		<a href="http://www.cpio.date//categories/vim"> vim </a>,
+	
+
+	
+	
+	    <a href="http://www.cpio.date//categories/emacs"> emacs </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/vimvsemacs/" itemprop="url"> vim 与 emacs 脚本编程对比</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		定义变量 vim
+let a = 123  emacs
+ (setq a 123)  定义函数 vim：
+function Fun() &quot;如果不使用作用域限制，首字母需要大写 endfunction  命令行调用 ：command! -nargs=1 Gdb :!命令 &quot;&lt;args&gt;&quot; emacs:
+(defun fun () &quot;message&quot; (interactive) ..... )  执行函数 vim:
+call function()  emacs:
+(fun )  条件语句 vim:
+if c elseif b else e endif while a endwhile  emacs:
+(if a 'thenfun 'elsefun) (while (equal a b) body... (计数器)) (cond (first .
+		<a href="http://www.cpio.date/post/vimvsemacs/" class="more-link">Read on →</a>
+	</div>
+</article>
+
+				    
+				        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="meta">
+		<div class="date"><time datetime='Tue, Jul 27, 2004' data-updated="true" itemprop="datePublished">Tue, Jul 27, 2004</time>
+</div>
+		<div class="tags">
+
+
+	
+	
+		<a href="http://www.cpio.date//categories/cpp"> CPP </a>,
+	
+
+	
+	
+	    <a href="http://www.cpio.date//categories/golang"> Golang </a>
+	
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="http://www.cpio.date/post/c&#43;&#43;%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8%E6%84%9F%E5%8F%97/" itemprop="url">c&#43;&#43;开发环境使用感受</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		学习 C++ 有一段时间了，真正完全符合标准的 C++ 开发环境却没有（也许是我没发现，如果那位大哥有，别忘了给小弟我介绍一下）。
+刚开始学着用 VC＋＋6.0 ，还可以在 windows 下确实是不错的。后来，看到 DEV－C++ 不错，从网上下载了一个 DEV－C++4.9.8.10 来用，还不错，使用 gcc 作为编译器，虽然功能上有些限制，但对于初学者来说已经够用了。如果以后要向 Linux 平台迁移的话 DEV-C++ 是一个很好的选择。他是一个免费软件，更新迅速。对于向我这样的穷人来说也许是首选。前几天，弄到了 BCB6.0 ，听别人说是对 C++ 标准支持最好的，也许是用微软的东西用多了，不是很习惯。他能很好的对工程进行编译，但调试功能却在 VC 之下。在 Linux 的 Shell 下直接用 gcc 做编译器也许是一个不错的注意，但要找到一个好的集成开发环境那是再好不过的了！
+ 注：这是2004年在 csdn 上发的第一篇 blog
+ 
+		
+	</div>
+</article>
+
+				    
+				    </div>
+				    <nav id="pagenavi">
+					    
+					        <a href="/" class="prev">Prev</a>
+					    
+					    
+					    <div class="center"><a href="http://www.cpio.date//post/">Blog Archives</a></div>
+					</nav>
+				</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2017
+
+    cnsworder
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<script src="http://www.cpio.date//js/slash.js"></script>
+<script src="http://www.cpio.date//js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script></footer>
+		</div>
+	</div>
+	
+
+
+	
+</body>
+</html>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Development on CSROSS </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>http://www.cpio.date/categories/development/index.xml</link>
+    <language>zh-cn</language>
+    <author>cnsworder</author>
+    
+    <updated>Mon, 01 Jan 0001 00:00:00 UTC</updated>
+    
+    <item>
+      <title>emacs cask</title>
+      <link>http://www.cpio.date/my/</link>
+      <pubDate>Tue, 17 Jan 2017 19:42:09 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/my/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;http://ocr26ve0z.bkt.clouddn.com/14840306582556.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;emacs cask 是 emacs 的一个包管理工具，他的描述文件是 &lt;code&gt;Cask&lt;/code&gt; . 他主要的开发语言是 &lt;code&gt;python&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;我的emacs配置地址: &lt;a href=&#34;https://github.com/cnsworder/crossemacs&#34;&gt;https://github.com/cnsworder/crossemacs&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+
+&lt;p&gt;安装方法有三种，分别是：&lt;/p&gt;
+
+&lt;h3 id=&#34;直接下载安装脚本&#34;&gt;直接下载安装脚本&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl -fsSkL https://raw.github.com/cask/cask/master/go | python
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;github-clone安装&#34;&gt;github clone安装&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/cask/cask.git ~/.cask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;mac-os-上-homebrew-管理器安装&#34;&gt;Mac OS 上 homebrew 管理器安装&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew install cask
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果 cask 不在你的命令路径下，需要添加到 &lt;code&gt;PATH&lt;/code&gt; 中。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ export PATH=&amp;quot;/path/to/code/cask/bin:$PATH&amp;quot;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;升级-cask&#34;&gt;升级 cask&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask upgrade-cask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
+
+&lt;h3 id=&#34;初始化&#34;&gt;初始化&lt;/h3&gt;
+
+&lt;p&gt;在cask使用前需要一个 &lt;code&gt;Cask&lt;/code&gt; 文件来描述emacs使用的包，这个文件可以用下面的指令来生成：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask init [--dev]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs 在使用了 cask 后会从 &lt;code&gt;~/.emacs.d&lt;/code&gt; 目录下找 &lt;code&gt;Cask&lt;/code&gt; 文件和 &lt;code&gt;.cask&lt;/code&gt; 目录，所以把 &lt;code&gt;Cask&lt;/code&gt; 文件放到 &lt;code&gt;~/.emacs.d&lt;/code&gt; 目录下。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ndash;dev 表示是否开发模式&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;安装插件包&#34;&gt;安装插件包&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;它会根据 &lt;code&gt;Cask&lt;/code&gt; 文件定义将依赖包下载到 &lt;code&gt;.cask/${VERSION}&lt;/code&gt;目录下，其中 &lt;code&gt;${VERSION}&lt;/code&gt; 是当前使用 emacs 的版本号。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ EMACS=&amp;quot;$(evm bin emacs-24.1)&amp;quot; cask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当然也可以直接指定版本。&lt;/p&gt;
+
+&lt;h3 id=&#34;emacs-配置&#34;&gt;emacs 配置&lt;/h3&gt;
+
+&lt;p&gt;将下面的代码放到 &lt;code&gt;.emacs&lt;/code&gt; 中&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(require &#39;cask &amp;quot;~/.cask/cask.el&amp;quot;)
+(cask-initialize)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;emacs-中调用cask&#34;&gt;emacs 中调用cask&lt;/h3&gt;
+
+&lt;p&gt;pallet 是 cask 在 emacs 中的命令接口，调用指令如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pallet-init
+pallet-install
+pallet-update
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;升级插件&#34;&gt;升级插件&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask upgrade
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;其他指令&#34;&gt;其他指令&lt;/h3&gt;
+
+&lt;h4 id=&#34;帮助&#34;&gt;帮助&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask help
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;执行emacs命令&#34;&gt;执行emacs命令&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask exec echo foo
+$ cask exec ecukes --script --reporter gangsta
+$ cask exec ert-runner --pattern performance
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;插件列表&#34;&gt;插件列表&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cask-配置文件选项&#34;&gt;Cask 配置文件选项&lt;/h2&gt;
+
+&lt;h4 id=&#34;source&#34;&gt;source&lt;/h4&gt;
+
+&lt;p&gt;定义包管理源&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(source ALIAS)
+(source NAME URL)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(source melpa)
+(source &amp;quot;melpa&amp;quot; &amp;quot;http://melpa.milkbox.net/packages/&amp;quot;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;package&#34;&gt;package&lt;/h4&gt;
+
+&lt;p&gt;开发模式下，定义一个包&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(package NAME VERSION DESCRIPTION)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;package-file&#34;&gt;package-file&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;(package-file FILENAME)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;depends-on&#34;&gt;depends-on&lt;/h4&gt;
+
+&lt;p&gt;添加依赖，这是重点使用到的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(depends-on NAME [ARGS])
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用实例:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(depends-on &amp;quot;ecukes&amp;quot;)
+(depends-on &amp;quot;magit&amp;quot; &amp;quot;0.8.1&amp;quot;)
+(depends-on &amp;quot;magit&amp;quot; :git &amp;quot;https://github.com/magit/magit.git&amp;quot;)
+(depends-on &amp;quot;magit&amp;quot; :git &amp;quot;https://github.com/magit/magit.git&amp;quot; :ref &amp;quot;7j3bj4d&amp;quot;)
+(depends-on &amp;quot;magit&amp;quot; :git &amp;quot;https://github.com/magit/magit.git&amp;quot; :branch &amp;quot;next&amp;quot;)
+(depends-on &amp;quot;magit&amp;quot; :git &amp;quot;https://github.com/magit/magit.git&amp;quot; :files (&amp;quot;*.el&amp;quot; (:exclude &amp;quot;magit-svn.el&amp;quot;)))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;development&#34;&gt;development&lt;/h4&gt;
+
+&lt;p&gt;开发模式的定义.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(development [DEPENDENCIES])
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;例子:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(development
+ (depends-on &amp;quot;ecukes&amp;quot;)
+ (depends-on &amp;quot;ert-runner&amp;quot;))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;files&#34;&gt;files&lt;/h4&gt;
+
+&lt;p&gt;加载文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(files [FILES])
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

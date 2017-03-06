@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Emacs on CSROSS </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>http://www.cpio.date/categories/emacs/index.xml</link>
+    <language>zh-cn</language>
+    <author>cnsworder</author>
+    
+    <updated>Mon, 01 Jan 0001 00:00:00 UTC</updated>
+    
+    <item>
+      <title>emacs cask</title>
+      <link>http://www.cpio.date/my/</link>
+      <pubDate>Tue, 17 Jan 2017 19:42:09 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/my/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;http://ocr26ve0z.bkt.clouddn.com/14840306582556.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;emacs cask 是 emacs 的一个包管理工具，他的描述文件是 &lt;code&gt;Cask&lt;/code&gt; . 他主要的开发语言是 &lt;code&gt;python&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;我的emacs配置地址: &lt;a href=&#34;https://github.com/cnsworder/crossemacs&#34;&gt;https://github.com/cnsworder/crossemacs&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+
+&lt;p&gt;安装方法有三种，分别是：&lt;/p&gt;
+
+&lt;h3 id=&#34;直接下载安装脚本&#34;&gt;直接下载安装脚本&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl -fsSkL https://raw.github.com/cask/cask/master/go | python
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;github-clone安装&#34;&gt;github clone安装&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/cask/cask.git ~/.cask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;mac-os-上-homebrew-管理器安装&#34;&gt;Mac OS 上 homebrew 管理器安装&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew install cask
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果 cask 不在你的命令路径下，需要添加到 &lt;code&gt;PATH&lt;/code&gt; 中。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ export PATH=&amp;quot;/path/to/code/cask/bin:$PATH&amp;quot;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;升级-cask&#34;&gt;升级 cask&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask upgrade-cask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
+
+&lt;h3 id=&#34;初始化&#34;&gt;初始化&lt;/h3&gt;
+
+&lt;p&gt;在cask使用前需要一个 &lt;code&gt;Cask&lt;/code&gt; 文件来描述emacs使用的包，这个文件可以用下面的指令来生成：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask init [--dev]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs 在使用了 cask 后会从 &lt;code&gt;~/.emacs.d&lt;/code&gt; 目录下找 &lt;code&gt;Cask&lt;/code&gt; 文件和 &lt;code&gt;.cask&lt;/code&gt; 目录，所以把 &lt;code&gt;Cask&lt;/code&gt; 文件放到 &lt;code&gt;~/.emacs.d&lt;/code&gt; 目录下。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ndash;dev 表示是否开发模式&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;安装插件包&#34;&gt;安装插件包&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;它会根据 &lt;code&gt;Cask&lt;/code&gt; 文件定义将依赖包下载到 &lt;code&gt;.cask/${VERSION}&lt;/code&gt;目录下，其中 &lt;code&gt;${VERSION}&lt;/code&gt; 是当前使用 emacs 的版本号。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ EMACS=&amp;quot;$(evm bin emacs-24.1)&amp;quot; cask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当然也可以直接指定版本。&lt;/p&gt;
+
+&lt;h3 id=&#34;emacs-配置&#34;&gt;emacs 配置&lt;/h3&gt;
+
+&lt;p&gt;将下面的代码放到 &lt;code&gt;.emacs&lt;/code&gt; 中&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(require &#39;cask &amp;quot;~/.cask/cask.el&amp;quot;)
+(cask-initialize)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;emacs-中调用cask&#34;&gt;emacs 中调用cask&lt;/h3&gt;
+
+&lt;p&gt;pallet 是 cask 在 emacs 中的命令接口，调用指令如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pallet-init
+pallet-install
+pallet-update
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;升级插件&#34;&gt;升级插件&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask upgrade
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;其他指令&#34;&gt;其他指令&lt;/h3&gt;
+
+&lt;h4 id=&#34;帮助&#34;&gt;帮助&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask help
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;执行emacs命令&#34;&gt;执行emacs命令&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask exec echo foo
+$ cask exec ecukes --script --reporter gangsta
+$ cask exec ert-runner --pattern performance
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;插件列表&#34;&gt;插件列表&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cask list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cask-配置文件选项&#34;&gt;Cask 配置文件选项&lt;/h2&gt;
+
+&lt;h4 id=&#34;source&#34;&gt;source&lt;/h4&gt;
+
+&lt;p&gt;定义包管理源&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(source ALIAS)
+(source NAME URL)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(source melpa)
+(source &amp;quot;melpa&amp;quot; &amp;quot;http://melpa.milkbox.net/packages/&amp;quot;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;package&#34;&gt;package&lt;/h4&gt;
+
+&lt;p&gt;开发模式下，定义一个包&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(package NAME VERSION DESCRIPTION)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;package-file&#34;&gt;package-file&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;(package-file FILENAME)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;depends-on&#34;&gt;depends-on&lt;/h4&gt;
+
+&lt;p&gt;添加依赖，这是重点使用到的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(depends-on NAME [ARGS])
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用实例:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(depends-on &amp;quot;ecukes&amp;quot;)
+(depends-on &amp;quot;magit&amp;quot; &amp;quot;0.8.1&amp;quot;)
+(depends-on &amp;quot;magit&amp;quot; :git &amp;quot;https://github.com/magit/magit.git&amp;quot;)
+(depends-on &amp;quot;magit&amp;quot; :git &amp;quot;https://github.com/magit/magit.git&amp;quot; :ref &amp;quot;7j3bj4d&amp;quot;)
+(depends-on &amp;quot;magit&amp;quot; :git &amp;quot;https://github.com/magit/magit.git&amp;quot; :branch &amp;quot;next&amp;quot;)
+(depends-on &amp;quot;magit&amp;quot; :git &amp;quot;https://github.com/magit/magit.git&amp;quot; :files (&amp;quot;*.el&amp;quot; (:exclude &amp;quot;magit-svn.el&amp;quot;)))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;development&#34;&gt;development&lt;/h4&gt;
+
+&lt;p&gt;开发模式的定义.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(development [DEPENDENCIES])
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;例子:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(development
+ (depends-on &amp;quot;ecukes&amp;quot;)
+ (depends-on &amp;quot;ert-runner&amp;quot;))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;files&#34;&gt;files&lt;/h4&gt;
+
+&lt;p&gt;加载文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(files [FILES])
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title> vim 与 emacs 脚本编程对比</title>
+      <link>http://www.cpio.date/post/vimvsemacs/</link>
+      <pubDate>Tue, 04 Sep 2012 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/vimvsemacs/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;定义变量
+vim&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let a = 123
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;     (setq a 123)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;定义函数
+vim：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function Fun() &amp;quot;如果不使用作用域限制，首字母需要大写
+endfunction
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;命令行调用 &lt;code&gt;：command! -nargs=1 Gdb :!命令 &amp;quot;&amp;lt;args&amp;gt;&amp;quot;&lt;/code&gt;
+emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(defun fun ()
+&amp;quot;message&amp;quot;
+(interactive)
+ .....
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;执行函数
+vim:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;call function()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(fun )
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;条件语句
+vim:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if c
+elseif b
+else e
+endif
+while a
+endwhile
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(if a
+ &#39;thenfun
+ &#39;elsefun)
+(while (equal a b)
+body...
+(计数器))
+(cond 
+(first ...)
+(second ...))
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;自动执行
+vim:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;autocmd BuffRead *.cpp :call fun
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(add-hook &#39;c++-mode-hook &#39;(lambda ()
+                                                (interactive)
+                                                 .....))
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;引用其他文件
+vim:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;source name.vim
+. name.vim
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(require &#39;name)  ;;需要在文件末尾添加(provied &#39;name)
+(load &amp;quot;name.el&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;绑定快捷键
+vim:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nmap &amp;lt;silent&amp;gt; &amp;lt;F8&amp;gt; :call fun()&amp;lt;CR&amp;gt;
+imap &amp;lt;F9&amp;gt; :call fun()&amp;lt;CR&amp;gt;
+vmap &amp;lt;F10&amp;gt; :call fun()&amp;lt;CR&amp;gt;
+inoremap ( ()&amp;lt;Esc&amp;gt;i //输入(变()
+&amp;lt;A&amp;gt;/&amp;lt;M&amp;gt;Alt
+&amp;lt;C&amp;gt;Ctrl
+&amp;lt;S&amp;gt;Shift
+&amp;lt;D&amp;gt;Command
+&amp;lt;Esc&amp;gt;Esc
+&amp;lt;CR&amp;gt;回车
+&amp;lt;Fn&amp;gt;F1-F12
+其他查看 help keycodes
+inoremap 避免递归
+&amp;lt;silent&amp;gt;确保不回传命令
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(global-set-key [f8] &#39;fun)
+(define-key c++-mode-map (kbd &amp;quot;C-\ b l&amp;quot;) &#39;fun)
+kbd函数实现绑定多个组合快捷键
+-来连接同时按下的快捷键
+&amp;lt;f10&amp;gt;特殊按键
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

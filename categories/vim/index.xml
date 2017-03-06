@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Vim on CSROSS </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>http://www.cpio.date/categories/vim/index.xml</link>
+    <language>zh-cn</language>
+    <author>cnsworder</author>
+    
+    <updated>Mon, 01 Jan 0001 00:00:00 UTC</updated>
+    
+    <item>
+      <title>vim 插件列表</title>
+      <link>http://www.cpio.date/post/vimlist/</link>
+      <pubDate>Wed, 18 Jan 2017 12:10:25 &#43;0800</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/vimlist/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/cnsworder/crossvim&#34;&gt;仓库地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;基础&#34;&gt;基础&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;插件&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;gmarik/vundle, L9&lt;/td&gt;
+&lt;td&gt;包管理&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;The-NERD-tree&lt;/td&gt;
+&lt;td&gt;目录树&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;mhinz/vim-startify&lt;/td&gt;
+&lt;td&gt;首页&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ryanoasis/vim-devicons&lt;/td&gt;
+&lt;td&gt;文件图标&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ctrlpvim/ctrlp.vim, dyng/ctrlsf.vim&lt;/td&gt;
+&lt;td&gt;快速搜索&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;bling/vim-airline&lt;/td&gt;
+&lt;td&gt;状态栏美化&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;zenorocha/dracula-theme&amp;rsquo;,{&amp;lsquo;rtp&amp;rsquo;:&amp;lsquo;vim/&amp;rsquo;}&lt;/td&gt;
+&lt;td&gt;配色&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;terryma/vim-multiple-cursors.git&lt;/td&gt;
+&lt;td&gt;多光标&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;rking/ag.vim， dkprice/vim-easygrep&amp;rsquo;&lt;/td&gt;
+&lt;td&gt;搜索&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Lokaltog/vim-easymotion&lt;/td&gt;
+&lt;td&gt;搜索定位&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Plugin &amp;lsquo;TaskList.vim&lt;/td&gt;
+&lt;td&gt;任务列表&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;mbbill/undotree&lt;/td&gt;
+&lt;td&gt;撤销修改&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Yggdroot/indentLine&lt;/td&gt;
+&lt;td&gt;缩进提示&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;kien/rainbow_parentheses.vim&lt;/td&gt;
+&lt;td&gt;括号高亮&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;jiangmiao/auto-pairs，surround.vim&lt;/td&gt;
+&lt;td&gt;括号补全&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;terryma/vim-expand-region&lt;/td&gt;
+&lt;td&gt;扩展选择区域&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;开发&#34;&gt;开发&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;插件&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;editorconfig/editorconfig-vim&lt;/td&gt;
+&lt;td&gt;代码风格&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;mattn/gist-vim, tpope/vim-fugitive, airblade/vim-gitgutter&lt;/td&gt;
+&lt;td&gt;git&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;scrooloose/nerdcommenter&lt;/td&gt;
+&lt;td&gt;代码注释&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Valloric/YouCompleteMe&lt;/td&gt;
+&lt;td&gt;智能补全&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;scrooloose/syntastic&lt;/td&gt;
+&lt;td&gt;代码检查&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Chiel92/vim-autoformat&lt;/td&gt;
+&lt;td&gt;代码格式化&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;honza/vim-snippets&lt;/td&gt;
+&lt;td&gt;代码段提示&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;rizzatti/dash.vim, KabbAmine/zeavim.vim&lt;/td&gt;
+&lt;td&gt;帮助文档&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;DoxygenToolkit.vim&lt;/td&gt;
+&lt;td&gt;注释工具&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Tagbar&lt;/td&gt;
+&lt;td&gt;代码导航&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;gtags.vim&lt;/td&gt;
+&lt;td&gt;global导航&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;a.vim&lt;/td&gt;
+&lt;td&gt;头文件和源文件快速跳转&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;fatih/vim-go&lt;/td&gt;
+&lt;td&gt;go&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;vim-flake8&lt;/td&gt;
+&lt;td&gt;python&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;mattn/emmet-vim&lt;/td&gt;
+&lt;td&gt;web&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;&amp;quot;包管理
+Plugin &#39;gmarik/vundle&#39;
+Plugin &#39;L9&#39;
+&amp;quot;Plugin &#39;junegunn/vim-plug&#39;
+&amp;quot;目录树
+Plugin &#39;The-NERD-tree&#39;
+&amp;quot;快速搜索
+&amp;quot;Plugin &#39;FuzzyFinder&#39;
+Plugin &#39;ctrlpvim/ctrlp.vim&#39;
+Plugin &#39;dyng/ctrlsf.vim&#39;
+&amp;quot;状态栏
+if ! has(&#39;python&#39;)
+    Plugin &#39;bling/vim-airline&#39;
+elseif has(&#39;mac&#39;)
+    source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
+    set laststatus=2
+else
+    source /usr/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
+endif
+&amp;quot;Plugin &#39;Lokaltog/vim-powerline.git&#39;
+&amp;quot;多光标
+Plugin &#39;terryma/vim-multiple-cursors.git&#39;
+
+&amp;quot;主题配色
+&amp;quot;Plugin &#39;molokai&#39;
+Plugin &#39;zenorocha/dracula-theme&#39;,{&#39;rtp&#39;:&#39;vim/&#39;}
+&amp;quot;Plugin &#39;tango.vim&#39;
+
+&amp;quot;搜索定位
+Plugin &#39;Lokaltog/vim-easymotion&#39;
+&amp;quot;搜索
+Plugin &#39;rking/ag.vim&#39;
+Plugin &#39;dkprice/vim-easygrep&#39;
+&amp;quot;任务列表
+Plugin &#39;TaskList.vim&#39;
+&amp;quot;撤销树
+Plugin &#39;mbbill/undotree&#39;
+&amp;quot;缩进提示
+Plugin &#39;Yggdroot/indentLine&#39;
+&amp;quot;Plugin &#39;nathanaelkane/vim-indent-guides&#39;
+&amp;quot;括号高亮
+Plugin &#39;kien/rainbow_parentheses.vim&#39;
+&amp;quot;括号补全
+Plugin &#39;jiangmiao/auto-pairs&#39;
+Plugin &#39;surround.vim&#39;
+&amp;quot; 扩展选择区域
+Plugin &#39;terryma/vim-expand-region&#39;
+
+&amp;quot; editorconfig
+Plugin &#39;editorconfig/editorconfig-vim&#39;
+
+&amp;quot;头文件和源文件快速跳转
+Plugin &#39;a.vim&#39;
+&amp;quot;代码检查
+Plugin &#39;scrooloose/syntastic&#39;
+&amp;quot;git
+Plugin &#39;mattn/gist-vim&#39;
+Plugin &#39;tpope/vim-fugitive&#39;
+Plugin &#39;airblade/vim-gitgutter&#39;
+&amp;quot;代码注释
+Plugin &#39;scrooloose/nerdcommenter&#39;
+&amp;quot;golang
+Plugin &#39;fatih/vim-go&#39;
+&amp;quot;python
+Plugin &#39;vim-flake8&#39;
+&amp;quot;web
+Plugin &#39;mattn/emmet-vim&#39;
+
+&amp;quot;代码导航
+Plugin &#39;Tagbar&#39;
+
+&amp;quot;global导航
+Plugin &#39;gtags.vim&#39;
+
+&amp;quot;帮助文档
+&amp;quot;Plugin &#39;Keithbsmiley/investigate.vim&#39;
+Plugin &#39;DoxygenToolkit.vim&#39;
+
+if has(&amp;quot;mac&amp;quot;)
+    Plugin &#39;rizzatti/dash.vim&#39;
+else
+    Plugin &#39;KabbAmine/zeavim.vim&#39;
+endif
+
+
+&amp;quot;代码段提示
+Plugin &#39;honza/vim-snippets&#39;
+if has(&amp;quot;python&amp;quot;)
+    Plugin &#39;SirVer/ultiSnips&#39;
+endif
+
+&amp;quot;代码格式化
+if has(&amp;quot;python&amp;quot;)
+    Plugin &#39;Chiel92/vim-autoformat&#39;
+endif
+
+&amp;quot;代码提示
+if v:version &amp;lt; 703
+    Plugin &#39;clang-complete&#39;
+else
+    Plugin &#39;Valloric/YouCompleteMe&#39;
+endif
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title> vim 与 emacs 脚本编程对比</title>
+      <link>http://www.cpio.date/post/vimvsemacs/</link>
+      <pubDate>Tue, 04 Sep 2012 00:00:00 UTC</pubDate>
+      <author>cnsworder</author>
+      <guid>http://www.cpio.date/post/vimvsemacs/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;定义变量
+vim&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;let a = 123
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;     (setq a 123)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;定义函数
+vim：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function Fun() &amp;quot;如果不使用作用域限制，首字母需要大写
+endfunction
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;命令行调用 &lt;code&gt;：command! -nargs=1 Gdb :!命令 &amp;quot;&amp;lt;args&amp;gt;&amp;quot;&lt;/code&gt;
+emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(defun fun ()
+&amp;quot;message&amp;quot;
+(interactive)
+ .....
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;执行函数
+vim:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;call function()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(fun )
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;条件语句
+vim:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if c
+elseif b
+else e
+endif
+while a
+endwhile
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(if a
+ &#39;thenfun
+ &#39;elsefun)
+(while (equal a b)
+body...
+(计数器))
+(cond 
+(first ...)
+(second ...))
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;自动执行
+vim:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;autocmd BuffRead *.cpp :call fun
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(add-hook &#39;c++-mode-hook &#39;(lambda ()
+                                                (interactive)
+                                                 .....))
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;引用其他文件
+vim:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;source name.vim
+. name.vim
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(require &#39;name)  ;;需要在文件末尾添加(provied &#39;name)
+(load &amp;quot;name.el&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;绑定快捷键
+vim:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nmap &amp;lt;silent&amp;gt; &amp;lt;F8&amp;gt; :call fun()&amp;lt;CR&amp;gt;
+imap &amp;lt;F9&amp;gt; :call fun()&amp;lt;CR&amp;gt;
+vmap &amp;lt;F10&amp;gt; :call fun()&amp;lt;CR&amp;gt;
+inoremap ( ()&amp;lt;Esc&amp;gt;i //输入(变()
+&amp;lt;A&amp;gt;/&amp;lt;M&amp;gt;Alt
+&amp;lt;C&amp;gt;Ctrl
+&amp;lt;S&amp;gt;Shift
+&amp;lt;D&amp;gt;Command
+&amp;lt;Esc&amp;gt;Esc
+&amp;lt;CR&amp;gt;回车
+&amp;lt;Fn&amp;gt;F1-F12
+其他查看 help keycodes
+inoremap 避免递归
+&amp;lt;silent&amp;gt;确保不回传命令
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;emacs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(global-set-key [f8] &#39;fun)
+(define-key c++-mode-map (kbd &amp;quot;C-\ b l&amp;quot;) &#39;fun)
+kbd函数实现绑定多个组合快捷键
+-来连接同时按下的快捷键
+&amp;lt;f10&amp;gt;特殊按键
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
